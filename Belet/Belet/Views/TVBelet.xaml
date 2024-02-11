@@ -1,0 +1,595 @@
+﻿<Window x:Class="Belet.Views.TVBelet"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+        
+        
+          xmlns:converters="clr-namespace:Belet.Helper"
+       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{x:Null}"  
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         WindowStyle="None"
+        AllowsTransparency="True"
+                  xmlns:dxmvvm1="clr-namespace:DevExpress.Mvvm.UI;assembly=DevExpress.Xpf.Core.v21.1" 
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+            xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:TVBeletViewModel="clr-namespace:Belet.ViewModels"
+            
+           WindowStartupLocation="CenterScreen"  MouseLeftButtonDown="WindowMouseLeftButtonDown"
+             xmlns:ViewModels="clr-namespace:Belet.ViewModels" 
+            x:Name="TVWindow"
+             xmlns:local="clr-namespace:Belet.Views"
+             mc:Ignorable="d" 
+             MinWidth="650"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Window.DataContext>
+        <ViewModels:TVBeletViewModel/>
+    </Window.DataContext>
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+
+    <x:Code>
+        <![CDATA[            
+        private void WindowMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+    ]]>
+    </x:Code>
+
+
+
+
+    <Window.Resources>
+
+        <converters:dk_MultiBindingConverter x:Key="MultiBindingConverter" />
+
+    </Window.Resources>
+
+     
+
+    <Grid Background="{DynamicResource MaterialDesignPaper}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:PopupBox Grid.Row="0" HorizontalAlignment="Right" Margin="0 10 20 10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
+
+            <StackPanel>
+                <StackPanel Margin="16 10 0 6" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center" Text="Dark Mode"/>
+                    <ToggleButton  Cursor="Hand"   Margin="12 0 8 0" x:Name="themeToggle" IsChecked="{Binding IsDarkTheme}" Command="{Binding toggleTheme}"/>
+                </StackPanel>
+                <Button Command="{Binding goldawmerkezi}"   Margin="0 8 0 0" Content="Help me"/>
+                <Button     Content="Exit Application" Command="{Binding close_application}"/>
+                <Button     Content="Minimize" Command="{Binding cmdLogin}"/>
+                <Button   Content="{Binding  tvbelet.IsBigOrNormal}" Command="{Binding sizechangebtn}"/>
+                <Button   ToolTip="Log out" x:Name="LogOutBtn" Content="Log out" Command="{Binding LogOutBtn}"/>
+                <Button ToolTip="Present" Content="Present" Command="{Binding presentBtn}"/>
+
+            </StackPanel>
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="Loaded"   Command="{Binding InitializeCommand}">
+                    <dxmvvm:EventToCommand.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                            <Binding ElementName="TVWindow"/>
+                            <Binding ElementName="LogOutBtn"/>
+                        </MultiBinding>
+                    </dxmvvm:EventToCommand.CommandParameter>
+                </dxmvvm:EventToCommand>
+
+            </dxmvvm:Interaction.Behaviors>
+        </materialDesign:PopupBox>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+            <StackPanel>
+                <Grid  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <WrapPanel Grid.Column="0" Margin="100 0 0 0">
+                        <Button  Command="{Binding choosepageBack}"   Margin="0 0 10 0" Width="50" HorizontalAlignment="Center" Height="auto" BorderThickness="0" Background="Transparent">
+                            <Button.Content>
+                                <Image>
+                                    <Image.Source >
+                                        <DrawingImage   PresentationOptions:Freeze="True">
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup>
+                                                    <DrawingGroup>
+                                                        <DrawingGroup.Transform>
+                                                            <TranslateTransform X="-1.99910593032837" Y="-1"/>
+                                                        </DrawingGroup.Transform>
+                                                        <GeometryDrawing Brush="{Binding tvbelet.brush1}" Geometry="F1M12.5,15A0.5,0.5,0,0,1,12,14.5L12,1.5A0.5,0.5,0,0,1,13,1.5L13,14.5A0.5,0.5,0,0,1,12.5,15z M10,8A0.5,0.5,0,0,1,9.5,8.5L3.707,8.5 5.854,10.646A0.5,0.5,0,0,1,5.146,11.354L2.146,8.354A0.5,0.5,0,0,1,2.146,7.646L5.146,4.646A0.5,0.5,0,1,1,5.854,5.354L3.707,7.5 9.5,7.5A0.5,0.5,0,0,1,10,8z"/>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                            </Button.Content>
+                        </Button>
+                        <Image HorizontalAlignment="Left" Source="C:\Data\source\WPF\BeletFilm\Belet\bin\Debug\Images\BeletLogo.png" Width="80"/>
+
+                    </WrapPanel>
+                    <StackPanel  Width="auto" Grid.Column="1">
+                        <WrapPanel Margin="0 0 100 0" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Button Height="auto"
+                            Command="{Binding VideoFrame}" BorderThickness="0"   Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ButtonAssist.CornerRadius="10"  Background="Transparent" Width="auto" FontSize="13"  Content="Video"/>
+                            <Button Height="auto"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Command="{Binding FilmFrame}"
+                          Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ButtonAssist.CornerRadius="10"
+                            Width="auto"
+                            FontSize="13"
+                            Margin="0 0 10 0" Content="Film"/>
+                            <ComboBox BorderThickness="0" 
+                              Background="Transparent" FontSize="13" VerticalAlignment="Center" Width="auto" Margin="0 0 10 0">
+                                <ComboBoxItem  FontSize="13"  IsSelected="True" Content="TM"/>
+                            </ComboBox>
+                            <materialDesign:PackIcon Width='30' VerticalAlignment="Center" Height="30" Kind="AccountCircle" />
+
+                            <ComboBox BorderThickness="0" Margin="0 0 20 0"  VerticalAlignment="Center"   Width="auto"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+                
+                
+                <Image Width="auto" Height="360" VerticalAlignment="Top" HorizontalAlignment="Center" Source="{Binding tvbelet.dunytv}"/>
+                <Border BorderThickness="0" Width="500" HorizontalAlignment="Center">
+                    <Image  Source="{Binding tvbelet.tvtuner}" Width="auto"/>
+                </Border>
+                
+                <TextBlock Margin="0 50 0 0" HorizontalAlignment="Center" Text=" Belet TV bilen lezzet alyň " FontSize="30" FontWeight="Medium"/>
+                <TextBlock HorizontalAlignment="Center" Text=" Kino. Seriallar. Multfilmler. Ähli ajaýyp zatlar bir uly ekranda. " FontSize="20"/>
+               
+                <WrapPanel HorizontalAlignment="Center" Margin="0 50 0 0">
+                    <StackPanel  Width="320"    Margin="25 20 25 0"  Height="auto">
+
+                        <Image Width="auto"  Source="{Binding tvbelet.marvelwar}"/>
+
+                        <Border Background="{StaticResource MaterialDesignBackground}" CornerRadius="0 0 10 10">
+                            <StackPanel>
+                                <TextBlock Margin="35" TextElement.Foreground="{StaticResource MaterialDesignBodyLight}"   FontSize="13" Foreground="Gray"   FontWeight="Normal">
+                            Internetde film görmek, diňe özüňiz
+                            <LineBreak/>
+                             gyzyklan dyrýan zady, size amatly
+                            <LineBreak/>
+                             bolan wagt da saý lamak mümkinçiligini
+                             <LineBreak/>
+                             elden gidirmäň. Bu örän aňsat we hezil!
+
+
+
+                                </TextBlock>
+                                <Border BorderBrush="Gray" BorderThickness="0 0.6 0 0">
+                                    <Button Height="80"  
+                                    BorderThickness="0"  Command="{Binding FilmFrame}"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"  >
+                                        <Button.Content>
+                                            <TextBlock HorizontalAlignment="Left"
+                                           Width="270"
+                                           Text="Tomaşa ediň >" />
+                                        </Button.Content>
+                                    </Button>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel  Width="320"    Margin="25 20 25 0"  Height="auto">
+
+                        <Image Width="auto"  Source="{Binding  tvbelet.mandalor}"/>
+
+                        <Border Background="{StaticResource MaterialDesignBackground}" CornerRadius="0 0 10 10">
+                            <StackPanel>
+                                <TextBlock Margin="35 " TextElement.Foreground="{StaticResource MaterialDesignBodyLight}"   FontSize="13" Foreground="Gray"   FontWeight="Normal">
+                            Islän serialyňyzy günüň islend wagty 
+                            <LineBreak />
+                             onlaýn görüp bilersiňiz.  Şonuň üçin 
+                            <LineBreak />
+                            maşgala agzalaryň jaň ediň we 
+                            <LineBreak />
+                            serialy şu wagt onlaýn görüp başlaň! 
+                                    
+
+
+                                </TextBlock>
+                                <Border BorderBrush="Gray" BorderThickness="0 0.6 0 0">
+                                    <Button Height="80"  
+                                    BorderThickness="0" 
+                                FontSize="16" Command="{Binding FilmFrame}"
+                                FontWeight="Medium"
+                                Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"  >
+                                        <Button.Content>
+                                            <TextBlock HorizontalAlignment="Left"
+                                           Width="270"
+                                           Text="Tomaşa ediň >" />
+                                        </Button.Content>
+                                    </Button>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel  Width="320"    Margin="25 20 25 0"  Height="auto">
+
+                        <Image Width="auto"  Source="{Binding  tvbelet.supeerfamily }"/>
+
+                        <Border Background="{StaticResource MaterialDesignBackground}" CornerRadius="0 0 10 10">
+                            <StackPanel>
+                                <TextBlock Margin="35 " TextElement.Foreground="{StaticResource MaterialDesignBodyLight}"   FontSize="13" Foreground="Gray"   FontWeight="Normal">
+                            Bölümde görkezilen multfilm ýygyndysy 
+                            <LineBreak />
+                            haýran galdyryjy.Ynha, çagalykdan başlap, 
+                            <LineBreak />
+                             bize da saý lamak we soňky ýyllaryň iň 
+                            <LineBreak />
+                            mümkinçil güýçli Golliwud premýeralary.
+
+
+
+                                </TextBlock>
+                                <Border BorderBrush="Gray" BorderThickness="0 0.6 0 0">
+                                    <Button Height="80"  
+                                    BorderThickness="0"  Command="{Binding FilmFrame}"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"  >
+                                        <Button.Content>
+                                            <TextBlock HorizontalAlignment="Left"
+                                           Width="270"
+                                           Text="Tomaşa ediň >" />
+                                        </Button.Content>
+                                    </Button>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+
+ 
+
+
+
+
+                </WrapPanel>
+
+                <StackPanel Margin="0 30 0 0">
+                    <TextBlock Text=" Gutujykdaky zatlar "
+                               FontWeight="Medium"
+                               FontSize="22"
+                               HorizontalAlignment="Center"/>
+                    <WrapPanel Margin="0 10 0 0" HorizontalAlignment="Center" >
+                        
+                        <TextBlock  Margin="0 0 15 0"
+                                  
+                                   FontWeight="Normal"
+                                  >
+                            <Run  Foreground="#377DFF" FontSize="12">✔ </Run>
+                            <Run Foreground="Gray" FontSize="14">Belet TV Box</Run>
+                        </TextBlock>
+                        <TextBlock  Margin="0 0 15 0"
+                                  
+                                   FontWeight="Normal"
+                                  >
+                            <Run Foreground="#377DFF" FontSize="12">✔ </Run>
+                            <Run Foreground="Gray" FontSize="14">Uzakdan dolandyryjy </Run>
+                        </TextBlock>
+                        <TextBlock  Margin="0 0 15 0"
+                                  
+                                   FontWeight="Normal"
+                                  >
+                            <Run Foreground="#377DFF" FontSize="12">✔ </Run>
+                            <Run Foreground="Gray" FontSize="14">HDMI kabel</Run>
+                        </TextBlock>
+                        <TextBlock  Margin="0 0 15 0"
+                                  
+                                   FontWeight="Normal"
+                                  >
+                            <Run Foreground="#377DFF" FontSize="12">✔ </Run>
+                            <Run Foreground="Gray" FontSize="14">Adapter  </Run>
+                        </TextBlock>
+                        
+                    </WrapPanel>
+                    <Image Source="{Binding tvtunertuner}" Width="600" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <Grid Width="500" HorizontalAlignment="Center" Margin="0 30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+
+                    <TextBlock  HorizontalAlignment="Left" Margin="0 0 0 20"
+                               Text="Önüm barada maglumat " Grid.Row="0" Grid.Column="0"
+                               FontWeight="Medium" Grid.ColumnSpan="2"
+                               FontSize="25" 
+                                />
+
+                    <TextBlock Text="Gysgaça syn" Margin="0 20 0 0"
+                                        FontSize="20" Grid.Row="1" Grid.Column="0"
+                                        FontWeight="Medium"
+                                         />
+
+                    <TextBlock  Margin="0 20 0 0"
+                                       Foreground="Gray"
+                                       FontSize="10" Grid.Row="1" Grid.Column="1"
+                                       FontWeight="Medium">
+                                    Belet Film, Belet TV 4K enjamlarynda iň oňat
+                                <LineBreak />
+                                filmleri, seriallary, multfilmleri we şoulary hödürleýär.
+                                <LineBreak />
+                                Apple TV +, Netflix we Disney + ýaly hyzmatlaryň ...
+                    </TextBlock>
+
+
+                    <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Gray"  Margin="0 0 0 -15" BorderThickness="0 1"/>
+
+                    <TextBlock  Grid.Column="0" Grid.Row="2" Text="Size gerek zatlar "
+                                        FontSize="20"  Margin="0 30 0 0"
+                                        FontWeight="Medium" />
+
+                    <TextBlock    Grid.Column="1" Grid.Row="2" 
+                                       Foreground="Gray"
+                                       FontSize="10" Margin="0 30 0 0"
+                                       FontWeight="Medium">
+                                 Belet TV Box
+                            <LineBreak />                             
+                             HDMI kabel 
+                            <LineBreak />                            
+                            Uzakdan dolandyryjy
+                            <LineBreak />
+                            Simli ýa-da simsiz tor
+                            <LineBreak />
+                             IPTV ýa-da internede birikdiriň
+                    </TextBlock>
+
+
+
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Belet TV tehniki "
+                                        FontSize="20"  Margin="0 30 0 0"
+                                        FontWeight="Medium"
+                                    />
+
+                    <TextBlock  Grid.Column="1" Grid.Row="3" Margin="0 30 0 0"
+                                        Foreground="Gray"
+                                       FontSize="10"
+                                       FontWeight="Medium">
+                               Her Belet TV telefon arkaly tehniki goldawy 
+                            <LineBreak />                             
+                             bilen gelýär.
+                    </TextBlock>
+
+                    <Border Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" BorderBrush="Gray"  Margin="0 10 0 -15" BorderThickness="0 1"/>
+
+                </Grid>
+
+                <WrapPanel   Margin="0 30" HorizontalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center" Margin="0 0 150 0" >
+                        <TextBlock Text="Belet TV gözleýärsiňizmi? "
+                                   Margin="20 10 0 10"
+                                   FontSize="24" FontWeight="Medium"/>
+                        <TextBlock Margin="20 10 0 10" Text="4K telewizoryňyzda hakyky surat we ses alyň." Foreground="Gray" FontSize="14"/>
+                        <Button Command="{Binding agtshop}" Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ButtonAssist.CornerRadius="10" HorizontalAlignment="Left" Content="Satyn al >" Width="120"   FontSize="15"   BorderThickness="0" Background="Transparent"/>
+                    </StackPanel>
+                    <Image Source="{Binding  tvbelet.tvtuner}"  Width="300"/>
+                </WrapPanel>
+
+                <StackPanel Background="#1d3159"
+                                Margin="0 0 0 0">
+                    <WrapPanel Width="auto"
+                                    Margin="0 100 0 0"
+                                    HorizontalAlignment="Center">
+
+                        <Image VerticalAlignment="Top"
+                                   Source="{Binding tvbelet.geometry1}"
+                                   Width="180"
+                                   Margin="80 15 20 0"
+                                   Height="130" />
+                        <StackPanel  Margin="20 15 0 0">
+                            <TextBlock HorizontalAlignment="Left"
+                                           Margin="15 0 0 10 "
+                                           FontWeight="Medium"
+                                           Foreground="White"
+                                           FontSize="25"
+                                           Text="Kärhana" />
+                            <Button HorizontalAlignment="Left"
+                                        FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                Command="{Binding BizBarada}"
+                                        Content="Biz barada"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="auto" />
+                            <Button FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                        Content="Kontaktlarymyz"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                    Command="{Binding BeletAcc}"
+                                        Height="auto" />
+                            <Button FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                        HorizontalAlignment="Left"
+                                Command="{Binding KarTazelik}"
+                                        Content="Täzelikler"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="auto" />
+                        </StackPanel>
+                        <StackPanel  Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Goldaw"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Content="Goldaw Merkezi"
+                                       Command="{Binding goldawmerkezi}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+                            <StackPanel Orientation="Horizontal"
+                                       Margin="-10 0 0 0"
+                                            HorizontalAlignment="Center">
+                                <materialDesign:PackIcon x:Name="phoneicon" MouseDown="first_MouseDown"  Height="30" Width="30" Kind="PhoneInTalkOutline" />
+                                <materialDesign:PackIcon x:Name="telegramicon" MouseDown="second_MouseDown" Height="30" Width="30" Margin="10 0" Kind="SendCircleOutline" />
+                                <materialDesign:PackIcon x:Name="emailicon" MouseDown="third_MouseDown" Height="30" Width="30" Kind="EmailSyncOutline" />
+
+                                <x:Code>
+                                    <![CDATA[            
+        private void first_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+             Process.Start("https://belet.com.tm/tel:+993-12-75-02-08");
+        }
+                                    private void second_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://t.me/belet_video_forum");
+        }
+                                    private void third_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+             Process.Start("mailto:info@belet.me");
+        }
+    ]]>
+                                </x:Code>
+
+
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel   Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Belet Video"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Content="Mahabat hyzmatlary"        Command="{Binding myhabathyzmatlar}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+
+                        </StackPanel>
+                        <StackPanel   Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Ýerleşýän salgymyz"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Height="auto"
+                                    Command="{Binding maplocation}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal">
+                                <TextBlock>
+                             Aşgabat şäher, 
+                            <LineBreak />
+                            Berkararlyk etraby,
+                            <LineBreak />
+                             2127(G.Gulyýew) köçesi, 
+                            <LineBreak />
+                            38-nji jaý.
+                                </TextBlock>
+                            </Button>
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Height="auto"
+                                    Command="{Binding callbtn}"
+                                        FontSize="15"
+                                        Content=" +993 (12) 75-02-08"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+
+
+                        </StackPanel>
+
+                    </WrapPanel>
+
+                    <Border BorderThickness="0.5"
+                                BorderBrush="Gray" />
+                    <WrapPanel>
+                        <Button Foreground="White"
+                                    Content="Gizlinlik syýasaty    /"
+                                    Background="Transparent"
+                                Command="{Binding confidbtn}"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content="Ulanmak düzgünleri    /"
+                                    Background="Transparent"
+                                Command="{Binding confidbtn}"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content=" Belet Speed     /"
+                                Command="{Binding beletspeed}"
+                                    Background="Transparent"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content="Türkmentelekom    "
+                                Command="{Binding turkmentelekom}"
+                                    Background="Transparent"
+                                    BorderThickness="0" />
+                    </WrapPanel>
+                    <Button Foreground="White"
+                                Content="JAN tehnologiýa HJ - Ähli hukuklar goralan."
+                                FontSize="16"
+                                Margin="0 10 0 50"
+                                Background="Transparent"
+                                BorderThickness="0" />
+
+                </StackPanel>
+            </StackPanel>
+
+        </ScrollViewer>
+    </Grid>
+
+   
+
+</Window>

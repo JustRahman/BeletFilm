@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tbl_rb_years",
+  "info": {
+    "singularName": "tbl-rb-year",
+    "pluralName": "tbl-rb-years",
+    "displayName": "Tbl_RB_year",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "year": {
+      "type": "string"
+    },
+    "tbl_rb_medias": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::company-info.company-info",
+      "mappedBy": "tbl_rb_year"
+    }
+  }
+}

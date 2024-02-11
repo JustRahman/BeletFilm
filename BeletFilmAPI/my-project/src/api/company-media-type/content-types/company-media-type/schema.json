@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_media_types",
+  "info": {
+    "singularName": "company-media-type",
+    "pluralName": "company-media-types",
+    "displayName": "Tbl_RB_media_type",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "media_type_name": {
+      "type": "string"
+    },
+    "media_type_description": {
+      "type": "string"
+    },
+    "tbl_rb_medias": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::company-info.company-info",
+      "mappedBy": "tbl_rb_media_types"
+    }
+  }
+}

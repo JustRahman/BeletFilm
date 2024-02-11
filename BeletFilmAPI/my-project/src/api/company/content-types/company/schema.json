@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "companies",
+  "info": {
+    "singularName": "company",
+    "pluralName": "companies",
+    "displayName": "tbl_RB_Company",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "company_name": {
+      "type": "string"
+    },
+    "company_full_name": {
+      "type": "string"
+    },
+    "company_description": {
+      "type": "text"
+    },
+    "company_guid": {
+      "type": "uid",
+      "targetField": "company_name",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,1185 @@
+﻿<Window x:Class="Belet.Views.ChoosePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        
+    
+            
+             xmlns:ChoosePageViewModel="clr-namespace:Belet.ViewModels"
+             xmlns:dxmvvm1="clr-namespace:DevExpress.Mvvm.UI;assembly=DevExpress.Xpf.Core.v21.1"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+             xmlns:ViewModels="clr-namespace:Belet.ViewModels" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+            WindowStartupLocation="CenterScreen" MouseLeftButtonDown="WindowMouseLeftButtonDown"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+        xmlns:local="clr-namespace:Belet.Views" 
+        x:Name="Window"
+        xmlns:converters="clr-namespace:Belet.Helper"
+          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{x:Null}"  
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         WindowStyle="None"
+        AllowsTransparency="True"
+        mc:Ignorable="d"  MinWidth="600" 
+        Title="Window2" Height="800"
+             Width="1300">
+
+
+   
+    <Window.DataContext>
+        <ViewModels:ChoosePageViewModel/> 
+    </Window.DataContext>
+
+
+
+    <x:Code>
+        <![CDATA[            
+        private void WindowMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+    ]]>
+    </x:Code>
+
+
+    <Window.Resources>
+
+        <converters:dk_MultiBindingConverter x:Key="MultiBindingConverter" />
+
+
+
+
+        <Image x:Key="Agent"
+               Source="{Binding choosePage.FilmAgent}" Width="500" />
+        <Image x:Key="Beletagts"
+               Source="{Binding choosePage.ASTUPage}" />
+        <Image x:Key="BeletArakesme"
+               Source="{Binding choosePage.ArakesmePage}" />
+        <Image x:Key="beletTuner"
+               Source="{Binding choosePage.TunerPage}" />
+        <Image x:Key="BeletTV"
+               Source="{Binding choosePage.TVbox}"
+               Margin="20" />
+        <Image x:Key="MashaandBear"
+               Source="{Binding choosePage.MashaBear}"/>
+        <Image x:Key="Turkmenteleckom"
+               Source="{Binding choosePage.TelekomPage}" />
+        
+    </Window.Resources>
+
+  
+
+
+
+
+
+
+    <Grid Background="{DynamicResource MaterialDesignPaper}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        
+
+
+        <materialDesign:PopupBox Grid.Row="0" HorizontalAlignment="Right" Margin="0 10 20 10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
+
+            <StackPanel> 
+                <StackPanel Margin="16 10 0 6" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center" Text="Dark Mode"/>
+                    <ToggleButton  Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" x:Name="themeToggle" IsChecked="{Binding IsDarkTheme}" Command="{Binding toggleTheme}"/>
+                </StackPanel>
+                <Button Command="{Binding goldawmerkezi}" ToolTip="Having Trouble Loggin In?" Margin="0 8 0 0" Content="Help me"/>
+                <Button   ToolTip="Close Application" Content="Exit Application" Command="{Binding close_application}"/>
+                <Button   ToolTip="Minimize" Content="Minimize" Command="{Binding cmdLogin}"/>
+                <Button   ToolTip="Close Application" Content="{Binding  choosePage.IsBigOrNormal}" Command="{Binding sizechangebtn}"/>
+                <Button   ToolTip="Log out" x:Name="LogOutBtn" Content="Log out" Command="{Binding LogOutBtn}"/>
+                <Button ToolTip="Present" Content="Present" Command="{Binding presentBtn}"/>
+            </StackPanel>
+        </materialDesign:PopupBox>
+        
+        
+        
+
+
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Hidden" Height="755" Margin="0,0.2,0,0" VerticalAlignment="Top">
+
+
+
+            <StackPanel >
+
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand EventName="Loaded"   Command="{Binding InitializeCommand}">
+                        <dxmvvm:EventToCommand.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                                <Binding ElementName="Window"/>
+                                <Binding ElementName="LogOutBtn"/>
+                            </MultiBinding>
+                        </dxmvvm:EventToCommand.CommandParameter>
+                    </dxmvvm:EventToCommand>
+
+                    <dxmvvm:EventToCommand EventName="SizeChanged"   Command="{Binding size}">
+                        <dxmvvm:EventToCommand.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                                <Binding ElementName="Window"/>
+                            </MultiBinding>
+                        </dxmvvm:EventToCommand.CommandParameter>
+                    </dxmvvm:EventToCommand>
+
+                </dxmvvm:Interaction.Behaviors>
+
+
+
+                <StackPanel >
+
+                    <Grid Margin="0 20 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+
+
+                        <WrapPanel Grid.Column="0" Margin="100 0 0 0">
+                            <Image HorizontalAlignment="Left" Source="C:\Data\source\WPF\BeletFilm\Belet\bin\Debug\Images\BeletLogo.png" Width="80"/>
+
+                        </WrapPanel>
+                        <StackPanel  Width="auto" Grid.Column="1">
+                            <WrapPanel Margin="0 0 100 0" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                                <Button   Height="auto"
+                            Command="{Binding VideoFrame}" BorderThickness="0"   Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ButtonAssist.CornerRadius="10"  Background="Transparent" Width="auto" FontSize="13"  Content="Video"/>
+                                <Button Height="auto"
+                            BorderThickness="0"   
+                            Background="Transparent"
+                            Command="{Binding FilmFrame}"
+                          Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ButtonAssist.CornerRadius="10"
+                            Width="auto"
+                            FontSize="13"
+                            Margin="0 0 10 0" Content="Film"/>
+                                <ComboBox BorderThickness="0" 
+                              Background="Transparent" FontSize="13" VerticalAlignment="Center" Width="auto" Margin="0 0 10 0">
+                                    <ComboBoxItem  FontSize="13"  IsSelected="True" Content="TM"/>
+                                </ComboBox>
+                                <materialDesign:PackIcon Width='30' VerticalAlignment="Center" Height="30" Kind="AccountCircle" />
+
+                                <ComboBox BorderThickness="0" Margin="0 0 20 0"  VerticalAlignment="Center"   Width="auto">
+                                    <ComboBoxItem >
+                                        <StackPanel>
+                                            <TextBlock  Text="{Binding choosePage.PhonePersonNumber}"/>
+                                        </StackPanel>
+
+                                    </ComboBoxItem>
+                                </ComboBox>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Margin="0 15 0 0"
+                                Height="130"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontSize="40"
+                                   FontWeight="DemiBold"
+                                   Text="'Belet' her kim üçin" />
+                        <TextBlock Margin="0 10 0 0"
+                                   FontSize="20"
+                                   Foreground="Gray"
+                                   Text="Islendik ýerden we islendik enjamdan gyzykly mazmun" />
+                    </StackPanel>
+
+
+
+                    <Border VerticalAlignment="Bottom" Height="250" Width="250"   Margin="1350 -200 0 0" CornerRadius="100">
+                        <Ellipse>
+                            <Ellipse.Fill>
+                                <ImageBrush  Opacity="0.6"  >
+                                    <ImageBrush.ImageSource>
+                                        <DrawingImage  PresentationOptions:Freeze="True">
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup>
+                                                    <DrawingGroup>
+                                                        <DrawingGroup.Transform>
+                                                            <TranslateTransform X="14.6999998092651" Y="22.6000003814697"/>
+                                                        </DrawingGroup.Transform>
+                                                        <DrawingGroup>
+                                                            <DrawingGroup.ClipGeometry>
+                                                                <RectangleGeometry Rect="0,0,500,500"/>
+                                                            </DrawingGroup.ClipGeometry>
+                                                            <GeometryDrawing Pen="{StaticResource Pen10}" Geometry="F1M11.3,9.1L486.6,484 M-6.5,34.8L468.8,509.6 M498.2,319.4L181.5,2.7 M526.8,299.6L210.1,-17.1 M355.6,1L494.7,139.7 M275.9,3.1L492.6,219.4 M294.6,-17.6L511.3,198.7 M7.4,181.1L313.3,487 M-6.4,216.6L299.5,522.5 M3.1,86.3L416.8,499.9 M-12.7,116.8L401,530.5 M93.6,0.1L498.6,405.1 M115.3,-20.6L520.3,384.4 M81.8,33.6L486.8,438.7 M1.4,350.8L144.4,494.3 M3.5,275.4L219.8,492.2 M-11.3,300.1L205,516.8"/>
+                                                        </DrawingGroup>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </ImageBrush.ImageSource>
+                                </ImageBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <WrapPanel  HorizontalAlignment="Center">
+                        <Button  BorderThickness="0" Command="{Binding MashaBearbutton}" Margin="0 0 50 20"    HorizontalAlignment="Left" Background="{Binding choosePage.FirstBox}" Width="400" Height="400">
+                            <Button.Content>
+                                <StackPanel Width="490" Height="400" Margin="-15">
+                                    <Button Margin="-80 20 0 0"
+                                            BorderThickness="0" 
+                                            Command="{Binding MashaBearbutton}"
+                                            Background="Transparent"
+                                            Content="{StaticResource MashaandBear}" 
+                                            Height="260"/>
+                                    <StackPanel Margin="0 30 0 0">
+                                        <Button Command="{Binding MashaBearbutton}"  FontSize="20" HorizontalAlignment="Left" FontWeight="Medium" BorderThickness="0" Background="Transparent" TextElement.Foreground="{DynamicResource MaterialDesignBody}" Content="Belet Video" Height="auto"/>
+
+                                        <Button  FontSize="17" HorizontalAlignment="Left" FontWeight="Medium"    BorderThickness="0" Background="Transparent" Content="Geç >" Style="{StaticResource MaterialDesignFlatButton}" Foreground="#377DFF" Command="{Binding MashaBearbutton}"    materialDesign:ShadowAssist.ShadowDepth="Depth0"   Width="auto" materialDesign:ButtonAssist.CornerRadius="10"  />
+
+                                    </StackPanel>
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.Triggers>
+                                <EventTrigger RoutedEvent="Button.MouseEnter" >
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.0"  Value="0, 0,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.1"  Value="0, -1,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -2,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.15" Value="0, -3,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -4,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -5,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, -6,50,20" />
+
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="Button.MouseLeave" >
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.0" Value="0, -6,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="0, -5,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -4,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.15"  Value="0, -3,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -2,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -1,50,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, 0,50,20" />
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Button.Triggers>
+                        </Button>
+
+                        <Button BorderThickness="0" Margin="0 0 0 20"   Command="{Binding FilmFrame}"  HorizontalAlignment="Right" Background="{Binding choosePage.SecondBox}" Width="400" Height="400">
+                            <Button.Content>
+                                <StackPanel Width="490" Height="400" Margin="-15">
+                                    <Button Margin="-80 20 0 0"
+                                            BorderThickness="0"
+                                            Command="{Binding FilmFrame}"
+                                            Background="Transparent"
+                                            Content="{StaticResource Agent}" 
+                                            Height="260"/>
+                                    <StackPanel Margin="0 30 0 0">
+                                        <Button TextElement.Foreground="{DynamicResource MaterialDesignBody}" Command="{Binding FilmFrame}" FontSize="20" HorizontalAlignment="Left" FontWeight="Medium" BorderThickness="0" Background="Transparent" Content="Belet Video" Height="auto"/>
+                                        <Button  Foreground="#377DFF" FontSize="17" HorizontalAlignment="Left" FontWeight="Medium"    BorderThickness="0" Background="Transparent" Content="Geç >" Command="{Binding FilmFrame}"  Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"   Width="auto" materialDesign:ButtonAssist.CornerRadius="10"  />
+
+                                    </StackPanel>
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.Triggers>
+                                <EventTrigger RoutedEvent="Button.MouseEnter" >
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.0"  Value="0, 0,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.1"  Value="0, -1,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -2,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.15" Value="0, -3,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -4,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -5,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, -6,0,20" />
+
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="Button.MouseLeave" >
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.0" Value="0, -6,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="0, -5,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -4,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.15"  Value="0, -3,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -2,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -1,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, 0,0,20" />
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Button.Triggers>
+                        </Button>
+
+
+
+
+                    </WrapPanel>
+
+
+
+
+
+
+
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Width="200" Margin="-500 0 0 0" Height="200">
+                            <Image.Source>
+                                <DrawingImage  PresentationOptions:Freeze="True">
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup>
+                                                <DrawingGroup>
+                                                    <DrawingGroup.ClipGeometry>
+                                                        <RectangleGeometry Rect="0,0,225.9,225.9"/>
+                                                    </DrawingGroup.ClipGeometry>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M1.9,3.8C2.949,3.8 3.8,2.949 3.8,1.9 3.8,0.851 2.949,0 1.9,0 0.851,0 0,0.851 0,1.9 0,2.949 0.851,3.8 1.9,3.8z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M26.6,3.8C27.649,3.8 28.5,2.949 28.5,1.9 28.5,0.851 27.649,0 26.6,0 25.551,0 24.7,0.851 24.7,1.9 24.7,2.949 25.551,3.8 26.6,3.8z M51.3,3.8C52.349,3.8 53.2,2.949 53.2,1.9 53.2,0.851 52.349,0 51.3,0 50.251,0 49.4,0.851 49.4,1.9 49.4,2.949 50.251,3.8 51.3,3.8z M1.9,28.5C2.949,28.5 3.8,27.649 3.8,26.6 3.8,25.551 2.949,24.7 1.9,24.7 0.851,24.7 0,25.551 0,26.6 0,27.649 0.851,28.5 1.9,28.5z M26.6,28.5C27.649,28.5 28.5,27.649 28.5,26.6 28.5,25.551 27.649,24.7 26.6,24.7 25.551,24.7 24.7,25.551 24.7,26.6 24.7,27.649 25.551,28.5 26.6,28.5z M51.3,28.5C52.349,28.5 53.2,27.649 53.2,26.6 53.2,25.551 52.349,24.7 51.3,24.7 50.251,24.7 49.4,25.551 49.4,26.6 49.4,27.649 50.251,28.5 51.3,28.5z M1.9,53.2C2.949,53.2 3.8,52.349 3.8,51.3 3.8,50.251 2.949,49.4 1.9,49.4 0.851,49.4 0,50.251 0,51.3 0,52.349 0.851,53.2 1.9,53.2z M26.6,53.2C27.649,53.2 28.5,52.349 28.5,51.3 28.5,50.251 27.649,49.4 26.6,49.4 25.551,49.4 24.7,50.251 24.7,51.3 24.7,52.349 25.551,53.2 26.6,53.2z M51.3,53.2C52.349,53.2 53.2,52.349 53.2,51.3 53.2,50.251 52.349,49.4 51.3,49.4 50.251,49.4 49.4,50.251 49.4,51.3 49.4,52.349 50.251,53.2 51.3,53.2z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M1.9,77.8C2.949,77.8 3.8,76.949 3.8,75.9 3.8,74.851 2.949,74 1.9,74 0.851,74 0,74.851 0,75.9 0,76.949 0.851,77.8 1.9,77.8z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M26.6,77.8C27.649,77.8 28.5,76.949 28.5,75.9 28.5,74.851 27.649,74 26.6,74 25.551,74 24.7,74.851 24.7,75.9 24.7,76.949 25.551,77.8 26.6,77.8z M51.3,77.8C52.349,77.8 53.2,76.949 53.2,75.9 53.2,74.851 52.349,74 51.3,74 50.251,74 49.4,74.851 49.4,75.9 49.4,76.949 50.251,77.8 51.3,77.8z M1.9,102.5C2.949,102.5 3.8,101.649 3.8,100.6 3.8,99.551 2.949,98.7 1.9,98.7 0.851,98.7 0,99.551 0,100.6 0,101.649 0.851,102.5 1.9,102.5z M26.6,102.5C27.649,102.5 28.5,101.649 28.5,100.6 28.5,99.551 27.649,98.7 26.6,98.7 25.551,98.7 24.7,99.551 24.7,100.6 24.7,101.649 25.551,102.5 26.6,102.5z M51.3,102.5C52.349,102.5 53.2,101.649 53.2,100.6 53.2,99.551 52.349,98.7 51.3,98.7 50.251,98.7 49.4,99.551 49.4,100.6 49.4,101.649 50.251,102.5 51.3,102.5z M1.9,127.2C2.949,127.2 3.8,126.349 3.8,125.3 3.8,124.251 2.949,123.4 1.9,123.4 0.851,123.4 0,124.251 0,125.3 0,126.349 0.851,127.2 1.9,127.2z M26.6,127.2C27.649,127.2 28.5,126.349 28.5,125.3 28.5,124.251 27.649,123.4 26.6,123.4 25.551,123.4 24.7,124.251 24.7,125.3 24.7,126.349 25.551,127.2 26.6,127.2z M51.3,127.2C52.349,127.2 53.2,126.349 53.2,125.3 53.2,124.251 52.349,123.4 51.3,123.4 50.251,123.4 49.4,124.251 49.4,125.3 49.4,126.349 50.251,127.2 51.3,127.2z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M1.9,151.8C2.949,151.8 3.8,150.949 3.8,149.9 3.8,148.851 2.949,148 1.9,148 0.851,148 0,148.851 0,149.9 0,150.949 0.851,151.8 1.9,151.8z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M26.6,151.8C27.649,151.8 28.5,150.949 28.5,149.9 28.5,148.851 27.649,148 26.6,148 25.551,148 24.7,148.851 24.7,149.9 24.7,150.949 25.551,151.8 26.6,151.8z M51.3,151.8C52.349,151.8 53.2,150.949 53.2,149.9 53.2,148.851 52.349,148 51.3,148 50.251,148 49.4,148.851 49.4,149.9 49.4,150.949 50.251,151.8 51.3,151.8z M1.9,176.5C2.949,176.5 3.8,175.649 3.8,174.6 3.8,173.551 2.949,172.7 1.9,172.7 0.851,172.7 0,173.551 0,174.6 0,175.649 0.851,176.5 1.9,176.5z M26.6,176.5C27.649,176.5 28.5,175.649 28.5,174.6 28.5,173.551 27.649,172.7 26.6,172.7 25.551,172.7 24.7,173.551 24.7,174.6 24.7,175.649 25.551,176.5 26.6,176.5z M51.3,176.5C52.349,176.5 53.2,175.649 53.2,174.6 53.2,173.551 52.349,172.7 51.3,172.7 50.251,172.7 49.4,173.551 49.4,174.6 49.4,175.649 50.251,176.5 51.3,176.5z M1.9,201.2C2.949,201.2 3.8,200.349 3.8,199.3 3.8,198.251 2.949,197.4 1.9,197.4 0.851,197.4 0,198.251 0,199.3 0,200.349 0.851,201.2 1.9,201.2z M26.6,201.2C27.649,201.2 28.5,200.349 28.5,199.3 28.5,198.251 27.649,197.4 26.6,197.4 25.551,197.4 24.7,198.251 24.7,199.3 24.7,200.349 25.551,201.2 26.6,201.2z M51.3,201.2C52.349,201.2 53.2,200.349 53.2,199.3 53.2,198.251 52.349,197.4 51.3,197.4 50.251,197.4 49.4,198.251 49.4,199.3 49.4,200.349 50.251,201.2 51.3,201.2z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M1.9,225.8C2.949,225.8 3.8,224.949 3.8,223.9 3.8,222.851 2.949,222 1.9,222 0.851,222 0,222.851 0,223.9 0,224.949 0.851,225.8 1.9,225.8z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M26.6,225.8C27.649,225.8 28.5,224.949 28.5,223.9 28.5,222.851 27.649,222 26.6,222 25.551,222 24.7,222.851 24.7,223.9 24.7,224.949 25.551,225.8 26.6,225.8z M51.3,225.8C52.349,225.8 53.2,224.949 53.2,223.9 53.2,222.851 52.349,222 51.3,222 50.251,222 49.4,222.851 49.4,223.9 49.4,224.949 50.251,225.8 51.3,225.8z M75.9,3.8C76.949,3.8 77.8,2.949 77.8,1.9 77.8,0.851 76.949,0 75.9,0 74.851,0 74,0.851 74,1.9 74,2.949 74.851,3.8 75.9,3.8z M100.6,3.8C101.649,3.8 102.5,2.949 102.5,1.9 102.5,0.851 101.649,0 100.6,0 99.551,0 98.7,0.851 98.7,1.9 98.7,2.949 99.551,3.8 100.6,3.8z M75.9,28.5C76.949,28.5 77.8,27.649 77.8,26.6 77.8,25.551 76.949,24.7 75.9,24.7 74.851,24.7 74,25.551 74,26.6 74,27.649 74.851,28.5 75.9,28.5z M100.6,28.5C101.649,28.5 102.5,27.649 102.5,26.6 102.5,25.551 101.649,24.7 100.6,24.7 99.551,24.7 98.7,25.551 98.7,26.6 98.7,27.649 99.551,28.5 100.6,28.5z M75.9,53.2C76.949,53.2 77.8,52.349 77.8,51.3 77.8,50.251 76.949,49.4 75.9,49.4 74.851,49.4 74,50.251 74,51.3 74,52.349 74.851,53.2 75.9,53.2z M100.6,53.2C101.649,53.2 102.5,52.349 102.5,51.3 102.5,50.251 101.649,49.4 100.6,49.4 99.551,49.4 98.7,50.251 98.7,51.3 98.7,52.349 99.551,53.2 100.6,53.2z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M75.9,77.8C76.949,77.8 77.8,76.949 77.8,75.9 77.8,74.851 76.949,74 75.9,74 74.851,74 74,74.851 74,75.9 74,76.949 74.851,77.8 75.9,77.8z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M100.6,77.8C101.649,77.8 102.5,76.949 102.5,75.9 102.5,74.851 101.649,74 100.6,74 99.551,74 98.7,74.851 98.7,75.9 98.7,76.949 99.551,77.8 100.6,77.8z M75.9,102.5C76.949,102.5 77.8,101.649 77.8,100.6 77.8,99.551 76.949,98.7 75.9,98.7 74.851,98.7 74,99.551 74,100.6 74,101.649 74.851,102.5 75.9,102.5z M100.6,102.5C101.649,102.5 102.5,101.649 102.5,100.6 102.5,99.551 101.649,98.7 100.6,98.7 99.551,98.7 98.7,99.551 98.7,100.6 98.7,101.649 99.551,102.5 100.6,102.5z M75.9,127.2C76.949,127.2 77.8,126.349 77.8,125.3 77.8,124.251 76.949,123.4 75.9,123.4 74.851,123.4 74,124.251 74,125.3 74,126.349 74.851,127.2 75.9,127.2z M100.6,127.2C101.649,127.2 102.5,126.349 102.5,125.3 102.5,124.251 101.649,123.4 100.6,123.4 99.551,123.4 98.7,124.251 98.7,125.3 98.7,126.349 99.551,127.2 100.6,127.2z M75.9,151.8C76.949,151.8 77.8,150.949 77.8,149.9 77.8,148.851 76.949,148 75.9,148 74.851,148 74,148.851 74,149.9 74,150.949 74.851,151.8 75.9,151.8z M100.6,151.8C101.649,151.8 102.5,150.949 102.5,149.9 102.5,148.851 101.649,148 100.6,148 99.551,148 98.7,148.851 98.7,149.9 98.7,150.949 99.551,151.8 100.6,151.8z M75.9,176.5C76.949,176.5 77.8,175.649 77.8,174.6 77.8,173.551 76.949,172.7 75.9,172.7 74.851,172.7 74,173.551 74,174.6 74,175.649 74.851,176.5 75.9,176.5z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M100.6,176.5C101.649,176.5 102.5,175.649 102.5,174.6 102.5,173.551 101.649,172.7 100.6,172.7 99.551,172.7 98.7,173.551 98.7,174.6 98.7,175.649 99.551,176.5 100.6,176.5z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M75.9,201.2C76.949,201.2 77.8,200.349 77.8,199.3 77.8,198.251 76.949,197.4 75.9,197.4 74.851,197.4 74,198.251 74,199.3 74,200.349 74.851,201.2 75.9,201.2z M100.6,201.2C101.649,201.2 102.5,200.349 102.5,199.3 102.5,198.251 101.649,197.4 100.6,197.4 99.551,197.4 98.7,198.251 98.7,199.3 98.7,200.349 99.551,201.2 100.6,201.2z M75.9,225.8C76.949,225.8 77.8,224.949 77.8,223.9 77.8,222.851 76.949,222 75.9,222 74.851,222 74,222.851 74,223.9 74,224.949 74.851,225.8 75.9,225.8z M100.6,225.8C101.649,225.8 102.5,224.949 102.5,223.9 102.5,222.851 101.649,222 100.6,222 99.551,222 98.7,222.851 98.7,223.9 98.7,224.949 99.551,225.8 100.6,225.8z M125.3,3.8C126.349,3.8 127.2,2.949 127.2,1.9 127.2,0.851 126.349,0 125.3,0 124.251,0 123.4,0.851 123.4,1.9 123.4,2.949 124.251,3.8 125.3,3.8z M149.9,3.8C150.949,3.8 151.8,2.949 151.8,1.9 151.8,0.851 150.949,0 149.9,0 148.851,0 148,0.851 148,1.9 148,2.949 148.851,3.8 149.9,3.8z M174.6,3.8C175.649,3.8 176.5,2.949 176.5,1.9 176.5,0.851 175.649,0 174.6,0 173.551,0 172.7,0.851 172.7,1.9 172.7,2.949 173.551,3.8 174.6,3.8z M125.3,28.5C126.349,28.5 127.2,27.649 127.2,26.6 127.2,25.551 126.349,24.7 125.3,24.7 124.251,24.7 123.4,25.551 123.4,26.6 123.4,27.649 124.251,28.5 125.3,28.5z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M149.9,28.5C150.949,28.5 151.8,27.649 151.8,26.6 151.8,25.551 150.949,24.7 149.9,24.7 148.851,24.7 148,25.551 148,26.6 148,27.649 148.851,28.5 149.9,28.5z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M174.6,28.5C175.649,28.5 176.5,27.649 176.5,26.6 176.5,25.551 175.649,24.7 174.6,24.7 173.551,24.7 172.7,25.551 172.7,26.6 172.7,27.649 173.551,28.5 174.6,28.5z M125.3,53.2C126.349,53.2 127.2,52.349 127.2,51.3 127.2,50.251 126.349,49.4 125.3,49.4 124.251,49.4 123.4,50.251 123.4,51.3 123.4,52.349 124.251,53.2 125.3,53.2z M149.9,53.2C150.949,53.2 151.8,52.349 151.8,51.3 151.8,50.251 150.949,49.4 149.9,49.4 148.851,49.4 148,50.251 148,51.3 148,52.349 148.851,53.2 149.9,53.2z M174.6,53.2C175.649,53.2 176.5,52.349 176.5,51.3 176.5,50.251 175.649,49.4 174.6,49.4 173.551,49.4 172.7,50.251 172.7,51.3 172.7,52.349 173.551,53.2 174.6,53.2z M125.3,77.8C126.349,77.8 127.2,76.949 127.2,75.9 127.2,74.851 126.349,74 125.3,74 124.251,74 123.4,74.851 123.4,75.9 123.4,76.949 124.251,77.8 125.3,77.8z M149.9,77.8C150.949,77.8 151.8,76.949 151.8,75.9 151.8,74.851 150.949,74 149.9,74 148.851,74 148,74.851 148,75.9 148,76.949 148.851,77.8 149.9,77.8z M174.6,77.8C175.649,77.8 176.5,76.949 176.5,75.9 176.5,74.851 175.649,74 174.6,74 173.551,74 172.7,74.851 172.7,75.9 172.7,76.949 173.551,77.8 174.6,77.8z M125.3,102.5C126.349,102.5 127.2,101.649 127.2,100.6 127.2,99.551 126.349,98.7 125.3,98.7 124.251,98.7 123.4,99.551 123.4,100.6 123.4,101.649 124.251,102.5 125.3,102.5z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M149.9,102.5C150.949,102.5 151.8,101.649 151.8,100.6 151.8,99.551 150.949,98.7 149.9,98.7 148.851,98.7 148,99.551 148,100.6 148,101.649 148.851,102.5 149.9,102.5z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M174.6,102.5C175.649,102.5 176.5,101.649 176.5,100.6 176.5,99.551 175.649,98.7 174.6,98.7 173.551,98.7 172.7,99.551 172.7,100.6 172.7,101.649 173.551,102.5 174.6,102.5z M125.3,127.2C126.349,127.2 127.2,126.349 127.2,125.3 127.2,124.251 126.349,123.4 125.3,123.4 124.251,123.4 123.4,124.251 123.4,125.3 123.4,126.349 124.251,127.2 125.3,127.2z M149.9,127.2C150.949,127.2 151.8,126.349 151.8,125.3 151.8,124.251 150.949,123.4 149.9,123.4 148.851,123.4 148,124.251 148,125.3 148,126.349 148.851,127.2 149.9,127.2z M174.6,127.2C175.649,127.2 176.5,126.349 176.5,125.3 176.5,124.251 175.649,123.4 174.6,123.4 173.551,123.4 172.7,124.251 172.7,125.3 172.7,126.349 173.551,127.2 174.6,127.2z M125.3,151.8C126.349,151.8 127.2,150.949 127.2,149.9 127.2,148.851 126.349,148 125.3,148 124.251,148 123.4,148.851 123.4,149.9 123.4,150.949 124.251,151.8 125.3,151.8z M149.9,151.8C150.949,151.8 151.8,150.949 151.8,149.9 151.8,148.851 150.949,148 149.9,148 148.851,148 148,148.851 148,149.9 148,150.949 148.851,151.8 149.9,151.8z M174.6,151.8C175.649,151.8 176.5,150.949 176.5,149.9 176.5,148.851 175.649,148 174.6,148 173.551,148 172.7,148.851 172.7,149.9 172.7,150.949 173.551,151.8 174.6,151.8z M125.3,176.5C126.349,176.5 127.2,175.649 127.2,174.6 127.2,173.551 126.349,172.7 125.3,172.7 124.251,172.7 123.4,173.551 123.4,174.6 123.4,175.649 124.251,176.5 125.3,176.5z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M149.9,176.5C150.949,176.5 151.8,175.649 151.8,174.6 151.8,173.551 150.949,172.7 149.9,172.7 148.851,172.7 148,173.551 148,174.6 148,175.649 148.851,176.5 149.9,176.5z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M174.6,176.5C175.649,176.5 176.5,175.649 176.5,174.6 176.5,173.551 175.649,172.7 174.6,172.7 173.551,172.7 172.7,173.551 172.7,174.6 172.7,175.649 173.551,176.5 174.6,176.5z M125.3,201.2C126.349,201.2 127.2,200.349 127.2,199.3 127.2,198.251 126.349,197.4 125.3,197.4 124.251,197.4 123.4,198.251 123.4,199.3 123.4,200.349 124.251,201.2 125.3,201.2z M149.9,201.2C150.949,201.2 151.8,200.349 151.8,199.3 151.8,198.251 150.949,197.4 149.9,197.4 148.851,197.4 148,198.251 148,199.3 148,200.349 148.851,201.2 149.9,201.2z M174.6,201.2C175.649,201.2 176.5,200.349 176.5,199.3 176.5,198.251 175.649,197.4 174.6,197.4 173.551,197.4 172.7,198.251 172.7,199.3 172.7,200.349 173.551,201.2 174.6,201.2z M125.3,225.8C126.349,225.8 127.2,224.949 127.2,223.9 127.2,222.851 126.349,222 125.3,222 124.251,222 123.4,222.851 123.4,223.9 123.4,224.949 124.251,225.8 125.3,225.8z M149.9,225.8C150.949,225.8 151.8,224.949 151.8,223.9 151.8,222.851 150.949,222 149.9,222 148.851,222 148,222.851 148,223.9 148,224.949 148.851,225.8 149.9,225.8z M174.6,225.8C175.649,225.8 176.5,224.949 176.5,223.9 176.5,222.851 175.649,222 174.6,222 173.551,222 172.7,222.851 172.7,223.9 172.7,224.949 173.551,225.8 174.6,225.8z M199.3,3.8C200.349,3.8 201.2,2.949 201.2,1.9 201.2,0.851 200.349,0 199.3,0 198.251,0 197.4,0.851 197.4,1.9 197.4,2.949 198.251,3.8 199.3,3.8z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M223.9,3.8C224.949,3.8 225.8,2.949 225.8,1.9 225.8,0.851 224.949,0 223.9,0 222.851,0 222,0.851 222,1.9 222,2.949 222.851,3.8 223.9,3.8z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M199.3,28.5C200.349,28.5 201.2,27.649 201.2,26.6 201.2,25.551 200.349,24.7 199.3,24.7 198.251,24.7 197.4,25.551 197.4,26.6 197.4,27.649 198.251,28.5 199.3,28.5z M223.9,28.5C224.949,28.5 225.8,27.649 225.8,26.6 225.8,25.551 224.949,24.7 223.9,24.7 222.851,24.7 222,25.551 222,26.6 222,27.649 222.851,28.5 223.9,28.5z M199.3,53.2C200.349,53.2 201.2,52.349 201.2,51.3 201.2,50.251 200.349,49.4 199.3,49.4 198.251,49.4 197.4,50.251 197.4,51.3 197.4,52.349 198.251,53.2 199.3,53.2z M223.9,53.2C224.949,53.2 225.8,52.349 225.8,51.3 225.8,50.251 224.949,49.4 223.9,49.4 222.851,49.4 222,50.251 222,51.3 222,52.349 222.851,53.2 223.9,53.2z M199.3,77.8C200.349,77.8 201.2,76.949 201.2,75.9 201.2,74.851 200.349,74 199.3,74 198.251,74 197.4,74.851 197.4,75.9 197.4,76.949 198.251,77.8 199.3,77.8z M223.9,77.8C224.949,77.8 225.8,76.949 225.8,75.9 225.8,74.851 224.949,74 223.9,74 222.851,74 222,74.851 222,75.9 222,76.949 222.851,77.8 223.9,77.8z M199.3,102.5C200.349,102.5 201.2,101.649 201.2,100.6 201.2,99.551 200.349,98.7 199.3,98.7 198.251,98.7 197.4,99.551 197.4,100.6 197.4,101.649 198.251,102.5 199.3,102.5z M223.9,102.5C224.949,102.5 225.8,101.649 225.8,100.6 225.8,99.551 224.949,98.7 223.9,98.7 222.851,98.7 222,99.551 222,100.6 222,101.649 222.851,102.5 223.9,102.5z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M199.3,127.2C200.349,127.2 201.2,126.349 201.2,125.3 201.2,124.251 200.349,123.4 199.3,123.4 198.251,123.4 197.4,124.251 197.4,125.3 197.4,126.349 198.251,127.2 199.3,127.2z"/>
+                                                    <GeometryDrawing Brush="{StaticResource Brush1}" Geometry="F1M223.9,127.2C224.949,127.2 225.8,126.349 225.8,125.3 225.8,124.251 224.949,123.4 223.9,123.4 222.851,123.4 222,124.251 222,125.3 222,126.349 222.851,127.2 223.9,127.2z M199.3,151.8C200.349,151.8 201.2,150.949 201.2,149.9 201.2,148.851 200.349,148 199.3,148 198.251,148 197.4,148.851 197.4,149.9 197.4,150.949 198.251,151.8 199.3,151.8z M223.9,151.8C224.949,151.8 225.8,150.949 225.8,149.9 225.8,148.851 224.949,148 223.9,148 222.851,148 222,148.851 222,149.9 222,150.949 222.851,151.8 223.9,151.8z M199.3,176.5C200.349,176.5 201.2,175.649 201.2,174.6 201.2,173.551 200.349,172.7 199.3,172.7 198.251,172.7 197.4,173.551 197.4,174.6 197.4,175.649 198.251,176.5 199.3,176.5z M223.9,176.5C224.949,176.5 225.8,175.649 225.8,174.6 225.8,173.551 224.949,172.7 223.9,172.7 222.851,172.7 222,173.551 222,174.6 222,175.649 222.851,176.5 223.9,176.5z M199.3,201.2C200.349,201.2 201.2,200.349 201.2,199.3 201.2,198.251 200.349,197.4 199.3,197.4 198.251,197.4 197.4,198.251 197.4,199.3 197.4,200.349 198.251,201.2 199.3,201.2z M223.9,201.2C224.949,201.2 225.8,200.349 225.8,199.3 225.8,198.251 224.949,197.4 223.9,197.4 222.851,197.4 222,198.251 222,199.3 222,200.349 222.851,201.2 223.9,201.2z M199.3,225.8C200.349,225.8 201.2,224.949 201.2,223.9 201.2,222.851 200.349,222 199.3,222 198.251,222 197.4,222.851 197.4,223.9 197.4,224.949 198.251,225.8 199.3,225.8z"/>
+                                                    <GeometryDrawing Brush="{StaticResource BrushGray}" Geometry="F1M223.9,225.8C224.949,225.8 225.8,224.949 225.8,223.9 225.8,222.851 224.949,222 223.9,222 222.851,222 222,222.851 222,223.9 222,224.949 222.851,225.8 223.9,225.8z"/>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                        <Button  BorderThickness="0" Command="{Binding BeletTuner}"   Margin="-50 0 0 20" Background="{Binding choosePage.ThirdBox}" HorizontalAlignment="Center" Width="400" Height="400">
+                            <Button.Content>
+                                <StackPanel Width="490">
+                                    <StackPanel>
+                                        <Button Margin="-80 20 0 0"
+                                            BorderThickness="0"
+                                            Background="Transparent"
+                                            Content="{StaticResource BeletTV}"
+                                            Height="260"
+                                            Command="{Binding BeletTuner}"/>
+
+                                    </StackPanel>
+                                    <StackPanel Margin="0 10 0 0">
+                                        <Button FontSize="20" Command="{Binding BeletTuner}" Height="auto" HorizontalAlignment="Left" TextElement.Foreground="{DynamicResource MaterialDesignBody}"  FontWeight="Medium" BorderThickness="0" Background="Transparent" Content="Belet Video"/> 
+                                        <Button  FontSize="17" HorizontalAlignment="Left" FontWeight="Medium"    BorderThickness="0" Background="Transparent" Content="Geç >"  Command="{Binding BeletTuner}"  Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"   Width="auto" materialDesign:ButtonAssist.CornerRadius="10"  />
+
+                                    </StackPanel>
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.Triggers>
+                                <EventTrigger RoutedEvent="Button.MouseEnter" >
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.0"  Value="-50, 0,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.1"  Value="-50, -1,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="-50, -2,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.15" Value="-50, -3,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="-50, -4,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="-50, -5,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="-50, -6,0,20" />
+
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="Button.MouseLeave" >
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.0" Value="-50, -6,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="-50, -5,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="-50, -4,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.15"  Value="-50, -3,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="-50, -2,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="-50, -1,0,20" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="-50, 0,0,20" />
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <WrapPanel HorizontalAlignment="Center" Margin="0 20 0 0">
+                    <Button    BorderThickness="0" 
+                                Command="{Binding BeletTelekom}"
+                                Background="{Binding choosePage.ForthBox}"
+                               Margin="0 0 50 20"
+                                Width="440"
+                                Height="auto">
+                        <Button.Content>
+                            <StackPanel Margin="20 0"
+                                        Width="380"
+                                            Height="auto">
+                                <Border    Margin="10 30 10 0" >
+                                    <Grid>
+                                        <Border Name="Mask"
+                                         Background="White"  
+                                         CornerRadius="10">
+                                        </Border>
+                                        <StackPanel>
+                                            <Image  Source="{Binding choosePage.TelekomPage}"/>
+
+                                            <StackPanel.OpacityMask>
+                                                <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                            </StackPanel.OpacityMask>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                                
+                                <Button Height="auto" 
+                                        Margin="13 20 0 0"
+                                            FontSize="13"
+                                            HorizontalAlignment="Left" 
+                                            FontWeight="Normal"
+                                            BorderThickness="0"  
+                                            Command="{Binding BeletTelekom}"  Style="{StaticResource MaterialDesignFlatDarkBgButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"   Width="auto" materialDesign:ButtonAssist.CornerRadius="6"
+                                           
+                                            Content="Birikdirmek"/>
+                                <Button FontSize="17"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding BeletTelekom}"
+                                            FontWeight="Medium"
+                                            Padding="10 5 0 5"
+                                            Foreground="#1f56c4"
+                                            BorderThickness="0"
+                                            Background="Transparent"
+                                            Height="auto">
+                                    <TextBlock  TextElement.Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Normal">
+                                    Türkmentelekom kärhanasynyň üsti bilen Belet 
+                                    <LineBreak />
+                                    Film hyzmatyny nädip birikdirmeli?
+                                    </TextBlock>
+                                </Button>
+                                <TextBlock Margin="10 5 0 5"
+                                           FontWeight="Light"
+                                               Text="12.01.2022 "
+                                               TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="17" />
+                                <WrapPanel Margin="0 0 0 10">
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light"
+                                               FontSize="16" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               Margin="10 0 0 0">
+                                     
+                                     1.Belet Film hyzmatyny
+
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                    birikdirmek üçin
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                    “Turkmentelekom”  hasabyňyza giriň,hyzmatyny
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                    birikdirmek üçin
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                    login (993KodNomer) we ...
+
+                                    </TextBlock>
+                                </WrapPanel>
+
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter" >
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.0"  Value="0, 0,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.1"  Value="0, -1,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -2,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.15" Value="0, -3,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -4,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -5,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, -6,50,20" />
+
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave" >
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.0" Value="0, -6,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="0, -5,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -4,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.15"  Value="0, -3,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -2,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -1,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, 0,50,20" />
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button    BorderThickness="0" 
+                                Command="{Binding BeletASTU}"
+                                Background="{Binding choosePage.FifthBox}"
+                               Margin="0 0 0 20"
+                                Width="440"
+                                Height="450">
+                        <Button.Content>
+                            <StackPanel Margin="20 0"
+                                        Width="380"
+                                            Height="auto">
+                                <Border    Margin="10 0" >
+                                    <Grid>
+                                        <Border  
+                                         Background="White"  
+                                         CornerRadius="10">
+                                        </Border>
+                                        <StackPanel>
+                                            <Image  Source="{Binding choosePage.ASTUPage}"/>
+
+                                            <StackPanel.OpacityMask>
+                                                <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                            </StackPanel.OpacityMask>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                                <Button Height="auto" 
+                                        Margin="13 20 0 0"
+                                            FontSize="13"
+                                            HorizontalAlignment="Left" 
+                                            FontWeight="Normal"
+                                            BorderThickness="0"  
+                                            Command="{Binding BeletASTU}" Style="{StaticResource MaterialDesignFlatDarkBgButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"   Width="auto" materialDesign:ButtonAssist.CornerRadius="6"
+                                          
+                                           Content=" Täzelik "/>
+                                <Button FontSize="17"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding BeletTelekom}"
+                                            FontWeight="Medium"
+                                            Padding="10 5 0 5"
+                                            Foreground="#1f56c4"
+                                            BorderThickness="0"
+                                            Background="Transparent"
+                                            Height="auto">
+                                    <TextBlock  TextElement.Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Normal">
+                                     AŞTU IPTV arkaly "Belet Film" hyzmatyny nädip
+                                    <LineBreak />
+                                     birikdirmeli? 
+                                    </TextBlock>
+                                </Button>
+                                <TextBlock Margin="10 5 0 5"
+                                           FontWeight="Light"
+                                               Text=" 21.01.2022  "
+                                               TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="17" />
+                                <WrapPanel Margin="0 0 0 10">
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light"
+                                               FontSize="16" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               Margin="10 0 0 0">
+                                     
+                                    Belet Film hyzmatyna birikmek üçin AGTS  hasabyňyza
+
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                   giriň, öý telefon
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                   belgiňizi we PIN kody giriziň ...
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                    birikdirmek üçin
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light" TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                    login (993KodNomer) we ...
+
+                                    </TextBlock>
+                                </WrapPanel>
+
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter" >
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.0"  Value="0, 0,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.1"  Value="0, -1,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -2,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.15" Value="0, -3,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -4,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -5,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, -6,0,20" />
+
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave" >
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.0" Value="0, -6,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="0, -5,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -4,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.15"  Value="0, -3,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -2,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -1,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, 0,0,20" />
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+
+                    </Button>
+
+
+                </WrapPanel>
+
+                <WrapPanel Margin="0 20 0 0" HorizontalAlignment="Center">
+ 
+
+                    <Button    BorderThickness="0" 
+                                Command="{Binding AraKesme}"
+                               Background="{Binding choosePage.SixthBox}"
+                               Margin="0 0 50 20"
+                                Width="440"
+                                Height="450">
+                        <Button.Content>
+                            <StackPanel Margin="20 0"
+                                        Width="380"
+                                            Height="auto">
+                                <Border    Margin="10 0" >
+                                    <Grid>
+                                        <Border  
+                                         Background="White"  
+                                         CornerRadius="10">
+                                        </Border>
+                                        <StackPanel>
+                                            <Image  Source="{Binding choosePage.ArakesmePage}"/>
+
+                                            <StackPanel.OpacityMask>
+                                                <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                            </StackPanel.OpacityMask>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                                <Button Height="auto" 
+                                        Margin="13 20 0 0"
+                                            FontSize="13"
+                                            HorizontalAlignment="Left" 
+                                            FontWeight="Normal"
+                                            BorderThickness="0"  
+                                             Command="{Binding AraKesme}"  Style="{StaticResource MaterialDesignFlatMidBgButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"   Width="auto" materialDesign:ButtonAssist.CornerRadius="6"
+                                            Foreground="White"
+                                           Content=" Mahabat "/>
+                                <Button FontSize="17"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding BeletTelekom}"
+                                            FontWeight="Medium"
+                                            Padding="10 5 0 5"
+                                             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                            BorderThickness="0"
+                                            Background="Transparent"
+                                            Height="auto">
+                                    <TextBlock  TextElement.Foreground="{DynamicResource MaterialDesignBody}" Margin="9 0 0 0">
+                                         Arakesme bilen Aksiýa! 
+                                    </TextBlock>
+                                </Button>
+                                <TextBlock Margin="10 5 0 5"
+                                           FontWeight="Light"
+                                              Text=" 15.01.2022 "
+                                                TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="17" />
+                                <WrapPanel Margin="0 0 0 10">
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light"  Foreground="Black"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                   Belet film stikerli islendik tagamly  Arakesme çiplerini
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light"  Foreground="Black"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                   satyn alyň.Bukjanyň içindäki listowkany gözläň.  
+                                    </TextBlock>
+                                    <TextBlock Height="auto"  Foreground="Black"
+                                           FontWeight="Light"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                   Baýraklary    alyň - 20 sany Belet Tv Box ýa-d... .
+
+                                    </TextBlock>
+
+                                </WrapPanel>
+
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter" >
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.0"  Value="0, 0,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.1"  Value="0, -1,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -2,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.15" Value="0, -3,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -4,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -5,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, -6,50,20" />
+
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave" >
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.0" Value="0, -6,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="0, -5,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -4,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.15"  Value="0, -3,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -2,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -1,50,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, 0,50,20" />
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+
+                    </Button>
+
+                    <Button    BorderThickness="0" 
+                               Command="{Binding BeletTunerTV}" 
+                               Background="{Binding choosePage.SeventhBox}"
+                               Margin="0 0 0 20" 
+                                Width="440"
+                                Height="480">
+                        <Button.Content>
+                            <StackPanel Margin="20 0"
+                                        Width="380"
+                                            Height="auto">
+                                <Border    Margin="10 0" >
+                                    <Grid>
+                                        <Border   
+                                         CornerRadius="10">
+                                        </Border>
+                                        <StackPanel>
+                                            <Image  Source="{Binding choosePage.TunerPage}"/>
+
+                                            <StackPanel.OpacityMask>
+                                                <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                            </StackPanel.OpacityMask>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                                <Button Height="auto" 
+                                        Margin="13 20 0 0"
+                                            FontSize="13"
+                                            HorizontalAlignment="Left" 
+                                            FontWeight="Normal"
+                                            BorderThickness="0"  
+                                            Command="{Binding BeletASTU}"  Style="{StaticResource MaterialDesignFlatMidBgButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"   Width="auto" materialDesign:ButtonAssist.CornerRadius="6"
+                                            Foreground="White"
+                                           Content=" Täzelik "/>
+                                <Button FontSize="17"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding BeletTelekom}"
+                                            FontWeight="Medium"
+                                            Padding="10 5 0 5"
+                                            Foreground="#1f56c4"
+                                            BorderThickness="0"
+                                            Background="Transparent"
+                                            Height="auto">
+                                    <TextBlock  TextElement.Foreground="{DynamicResource MaterialDesignBody}" >
+                                         AŞTU Belet Film hyzmaty üçin IP týuner
+                                         <LineBreak />
+                                           lerini bölekleýin satyp başlady
+                                    </TextBlock>
+                                </Button>
+                                <TextBlock Margin="10 5 0 5"
+                                           FontWeight="Light"
+                                              Text=" 24.01.2022 "
+                                                TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                                               FontSize="17" />
+                                <WrapPanel Margin="0 0 0 10">
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light"   Foreground="Black"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                   2021-nji ýylyň dekabrynda Aşgabat şäher telefon 
+
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light"
+                                               FontSize="16"  Foreground="Black"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                  ulanyjylary üçin “Belet Film” ulgamynyň hyzmaty
+                                    </TextBlock>
+                                    <TextBlock Height="auto"
+                                           FontWeight="Light"  Foreground="Black"
+                                               FontSize="16"
+                                               Margin="10 0 0 0">
+                                     
+                                     
+                                   elýeterli...
+                                    </TextBlock>
+                                    
+                                </WrapPanel>
+
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter" >
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.0"  Value="0, 0,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.1"  Value="0, -1,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -2,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.15" Value="0, -3,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -4,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -5,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, -6,0,20" />
+
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave" >
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.0" Value="0, -6,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="0, -5,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.12" Value="0, -4,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.15"  Value="0, -3,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.17" Value="0, -2,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.2"  Value="0, -1,0,20" />
+                                            <SplineThicknessKeyFrame KeyTime="0:0:0.23" Value="0, 0,0,20" />
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    
+                
+
+                </WrapPanel>
+
+
+                <Grid Width="900" Margin="5 30" >
+                    <Button Command="{Binding Ginileyin}"  Style="{StaticResource MaterialDesignFlatDarkBgButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"   Width="auto" materialDesign:ButtonAssist.CornerRadius="6"  BorderThickness="0" HorizontalAlignment="Left" Content="Giňişleýin"
+                            FontWeight="Medium"   
+                            Height="auto"
+                            Foreground="White"
+                            FontSize="13" />
+                </Grid>
+
+
+
+                <StackPanel Background="#1d3159"
+                                Margin="0 0 0 0">
+                    <WrapPanel Width="auto"
+                                    Margin="0 100 0 0"
+                                    HorizontalAlignment="Center">
+
+                        <Image VerticalAlignment="Top"
+                                   Source="{Binding choosePage.brush1}"
+                                   Width="180"
+                                   Margin="80 15 20 0"
+                                   Height="130" />
+                        <StackPanel  Margin="20 15 0 0">
+                            <TextBlock HorizontalAlignment="Left"
+                                           Margin="15 0 0 10 "
+                                           FontWeight="Medium"
+                                           Foreground="White"
+                                           FontSize="25"
+                                           Text="Kärhana" />
+                            <Button HorizontalAlignment="Left"
+                                        FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                Command="{Binding BizBarada}"
+                                        Content="Biz barada"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="auto" />
+                            <Button FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                        Content="Kontaktlarymyz"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                    Command="{Binding BeletAcc}"
+                                        Height="auto" />
+                            <Button FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                        HorizontalAlignment="Left"
+                                Command="{Binding KarTazelik}"
+                                        Content="Täzelikler"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="auto" />
+                        </StackPanel>
+                        <StackPanel  Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Goldaw"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Content="Goldaw Merkezi"
+                                       Command="{Binding goldawmerkezi}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+                            <StackPanel Orientation="Horizontal"
+                                       Margin="-10 0 0 0"
+                                            HorizontalAlignment="Center">
+                                <materialDesign:PackIcon x:Name="phoneicon" MouseDown="first_MouseDown"  Height="30" Width="30" Kind="PhoneInTalkOutline" />
+                                <materialDesign:PackIcon x:Name="telegramicon" MouseDown="second_MouseDown" Height="30" Width="30" Margin="10 0" Kind="SendCircleOutline" />
+                                <materialDesign:PackIcon x:Name="emailicon" MouseDown="third_MouseDown" Height="30" Width="30" Kind="EmailSyncOutline" />
+
+                                <x:Code>
+                                    <![CDATA[            
+        private void first_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+             Process.Start("https://belet.com.tm/tel:+993-12-75-02-08");
+        }
+                                    private void second_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://t.me/belet_video_forum");
+        }
+                                    private void third_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+             Process.Start("mailto:info@belet.me");
+        }
+    ]]>
+                                </x:Code>
+
+
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel   Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Belet Video"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Content="Mahabat hyzmatlary"
+                                    Command="{Binding myhabathyzmatlar}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+
+                        </StackPanel>
+                        <StackPanel   Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Ýerleşýän salgymyz"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Height="auto"
+                                    Command="{Binding maplocation}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal">
+                                <TextBlock>
+                             Aşgabat şäher, 
+                            <LineBreak />
+                            Berkararlyk etraby,
+                            <LineBreak />
+                             2127(G.Gulyýew) köçesi, 
+                            <LineBreak />
+                            38-nji jaý.
+                                </TextBlock>
+                            </Button>
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Height="auto"
+                                    Command="{Binding callbtn}"
+                                        FontSize="15"
+                                        Content=" +993 (12) 75-02-08"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+
+
+                        </StackPanel>
+
+                    </WrapPanel>
+
+                    <Border BorderThickness="0.5"
+                                BorderBrush="Gray" />
+                    <WrapPanel>
+                        <Button Foreground="White"
+                                    Content="Gizlinlik syýasaty    /"
+                                    Background="Transparent"
+                                Command="{Binding confidbtn}"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content="Ulanmak düzgünleri    /"
+                                    Background="Transparent"
+                                Command="{Binding confidbtn}"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content=" Belet Speed     /"
+                                Command="{Binding beletspeed}"
+                                    Background="Transparent"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content="Türkmentelekom    "
+                                Command="{Binding turkmentelekom}"
+                                    Background="Transparent"
+                                    BorderThickness="0" />
+                    </WrapPanel>
+                    <Button Foreground="White"
+                                Content="JAN tehnologiýa HJ - Ähli hukuklar goralan."
+                                FontSize="16"
+                                Margin="0 10 0 50"
+                                Background="Transparent"
+                                BorderThickness="0" />
+
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+
+
+
+
+
+</Window>

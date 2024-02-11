@@ -1,0 +1,737 @@
+﻿<Window x:Class="Belet.Views.VideoBelet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+              xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+         xmlns:converters="clr-namespace:Belet.Helper"
+         WindowStyle="None"
+        AllowsTransparency="True"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{x:Null}"  
+             xmlns:VideoBeletViewModel="clr-namespace:Belet.ViewModels"
+             xmlns:dxmvvm1="clr-namespace:DevExpress.Mvvm.UI;assembly=DevExpress.Xpf.Core.v21.1"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+             xmlns:ViewModels="clr-namespace:Belet.ViewModels" 
+              WindowStartupLocation="CenterScreen"  MouseLeftButtonDown="WindowMouseLeftButtonDown"
+             xmlns:local="clr-namespace:Belet.Views"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" 
+        x:Name="VideoWindow"
+             Height="720" Width="1300"
+             MinWidth="650">
+
+    <Window.DataContext>
+        <ViewModels:VideoBeletViewModel/>
+    </Window.DataContext>
+
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    
+    <x:Code>
+        <![CDATA[            
+        private void WindowMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+    ]]>
+    </x:Code>
+
+
+
+    <Window.Resources>
+
+        <converters:dk_MultiBindingConverter x:Key="MultiBindingConverter" />
+
+       
+    </Window.Resources>
+
+    
+
+
+    <Grid Background="{DynamicResource MaterialDesignPaper}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <materialDesign:PopupBox Grid.Row="0" HorizontalAlignment="Right" Margin="0 10 20 10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
+
+            <StackPanel>
+                <StackPanel Margin="16 10 0 6" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center" Text="Dark Mode"/>
+                    <ToggleButton  Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" x:Name="themeToggle" IsChecked="{Binding IsDarkTheme}" Command="{Binding toggleTheme}"/>
+                </StackPanel>
+                <Button Command="{Binding goldawmerkezi}" ToolTip="Having Trouble Loggin In?" Margin="0 8 0 0" Content="Help me"/>
+                <Button   ToolTip="Close Application" Content="Exit Application" Command="{Binding close_application}"/>
+                <Button    Content="Minimize" Command="{Binding cmdLogin}"/>
+                <Button    Content="{Binding  videoBeletModel.IsBigOrNormal}" Command="{Binding sizechangebtn}"/>
+                <Button   ToolTip="Log out" x:Name="LogOutBtn" Content="Log out" Command="{Binding LogOutBtn}"/>
+                <Button ToolTip="Present" Content="Present" Command="{Binding presentBtn}"/>
+            </StackPanel>
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="Loaded"   Command="{Binding InitializeCommand}">
+                    <dxmvvm:EventToCommand.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                            <Binding ElementName="VideoWindow"/>
+                            <Binding ElementName="LogOutBtn"/>
+                        </MultiBinding>
+                    </dxmvvm:EventToCommand.CommandParameter>
+                </dxmvvm:EventToCommand>
+
+            </dxmvvm:Interaction.Behaviors>
+        </materialDesign:PopupBox>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+
+            <StackPanel>
+
+
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <WrapPanel Grid.Column="0" Margin="100 0 0 0">
+                       
+                        <Button  Command="{Binding choosepageBack}"   Margin="100 5 10 0" Width="50" HorizontalAlignment="Center" Height="auto" BorderThickness="0" Background="Transparent">
+                            <Button.Content>
+                                <Image>
+                                    <Image.Source >
+                                        <DrawingImage   PresentationOptions:Freeze="True">
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup>
+                                                    <DrawingGroup>
+                                                        <DrawingGroup.Transform>
+                                                            <TranslateTransform X="-1.99910593032837" Y="-1"/>
+                                                        </DrawingGroup.Transform>
+                                                        <GeometryDrawing Brush="{Binding videoBeletModel.brush1}" Geometry="F1M12.5,15A0.5,0.5,0,0,1,12,14.5L12,1.5A0.5,0.5,0,0,1,13,1.5L13,14.5A0.5,0.5,0,0,1,12.5,15z M10,8A0.5,0.5,0,0,1,9.5,8.5L3.707,8.5 5.854,10.646A0.5,0.5,0,0,1,5.146,11.354L2.146,8.354A0.5,0.5,0,0,1,2.146,7.646L5.146,4.646A0.5,0.5,0,1,1,5.854,5.354L3.707,7.5 9.5,7.5A0.5,0.5,0,0,1,10,8z"/>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                            </Button.Content>
+                        </Button>
+                        <Image HorizontalAlignment="Left" Source="C:\Data\source\WPF\BeletFilm\Belet\bin\Debug\Images\belet_video.png" Width="150"/>
+
+                    </WrapPanel>
+                    <StackPanel  Width="auto" Grid.Column="1">
+                        <WrapPanel Margin="0 0 100 0" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+
+                            <Button Height="auto"
+                            Command="{Binding myhabatbelet}" BorderThickness="0"  materialDesign:ButtonAssist.CornerRadius="10"    Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"    Width="auto" FontSize="13"  Content="Mahabat hyzmatlary "/>
+                            <Button Height="auto"
+                            BorderThickness="0" materialDesign:ButtonAssist.CornerRadius="10"    Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
+ 
+                            Command="{Binding goldawmerkezi}"
+                            Width="auto"
+                            FontSize="13"
+                            Margin="0 0 10 0" Content="Goldaw"/>
+
+                            <materialDesign:PackIcon Width='30' VerticalAlignment="Center" Height="30" Kind="AccountCircle" />
+
+                            <ComboBox BorderThickness="0" Margin="0 0 20 0"  VerticalAlignment="Center"   Width="auto"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+
+
+                <Grid  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.03*"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="0.03*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.Column="1" Panel.ZIndex="3"  Fill="{Binding videoBeletModel.brush2}"/>
+                    <WrapPanel Grid.Column="1"  Margin="0 50"  Panel.ZIndex="4"   Height="auto" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                        <StackPanel Width="600"    Height="300" HorizontalAlignment="Left">
+                            <TextBlock Margin="0 60 0 0" Text="Belet Video" FontSize="30" FontWeight="Medium"/>
+
+                            <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
+                                <Border CornerRadius="10" Padding="5"  Background="#2f72ed"   HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                    <Button Foreground="White" Width="auto" Height="auto" Background="Transparent" BorderThickness="0">
+
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <Image Width="17">
+                                                    <Image.Source>
+                                                        <DrawingImage  PresentationOptions:Freeze="True">
+                                                            <DrawingImage.Drawing>
+                                                                <DrawingGroup>
+                                                                    <DrawingGroup>
+                                                                        <DrawingGroup.Transform>
+                                                                            <TranslateTransform X="-2" Y="-2"/>
+                                                                        </DrawingGroup.Transform>
+                                                                        <GeometryDrawing Brush="White" Geometry="F1M32,2C15.432,2 2,15.432 2,32 2,48.568 15.432,62 32,62 48.568,62 62,48.568 62,32 62,15.432 48.568,2 32,2z M32,49L16,33.695 26.857,33.695 26.857,15 37.142,15 37.142,33.695 48,33.695 32,49z"/>
+                                                                    </DrawingGroup>
+                                                                </DrawingGroup>
+                                                            </DrawingImage.Drawing>
+                                                        </DrawingImage>
+                                                    </Image.Source>
+                                                </Image>
+                                                <Button BorderThickness="0" Foreground="White" Background="Transparent"  FontSize="15" Content="Ýükläp almak"/>
+
+                                            </StackPanel>
+                                        </Button.Content>
+                                        <Button.Resources>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="CornerRadius" Value="7"/>
+                                            </Style>
+                                        </Button.Resources>
+
+                                    </Button>
+                                </Border>
+
+                                <Border CornerRadius="10" Padding="5"   Margin="20 0 0 0" Background="White"   HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button Foreground="White" Width="auto" Height="auto" Background="Transparent" BorderThickness="0">
+
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <Image Width="17">
+                                                    <Image.Source>
+                                                        <DrawingImage  PresentationOptions:Freeze="True">
+                                                            <DrawingImage.Drawing>
+                                                                <DrawingGroup>
+                                                                    <DrawingGroup>
+                                                                        <DrawingGroup.Transform>
+                                                                            <TranslateTransform X="-2" Y="-2"/>
+                                                                        </DrawingGroup.Transform>
+                                                                        <GeometryDrawing Brush="Blue" Geometry="F1M32,2C15.432,2 2,15.432 2,32 2,48.568 15.432,62 32,62 48.568,62 62,48.568 62,32 62,15.432 48.568,2 32,2z M32,49L16,33.695 26.857,33.695 26.857,15 37.142,15 37.142,33.695 48,33.695 32,49z"/>
+                                                                    </DrawingGroup>
+                                                                </DrawingGroup>
+                                                            </DrawingImage.Drawing>
+                                                        </DrawingImage>
+                                                    </Image.Source>
+                                                </Image>
+                                                <Button BorderThickness="0" Foreground="#2f72ed" Background="Transparent"  FontSize="15" Content=" *Belet Play "/>
+
+                                            </StackPanel>
+                                        </Button.Content>
+                                        <Button.Resources>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="CornerRadius" Value="7"/>
+                                            </Style>
+                                        </Button.Resources>
+
+                                    </Button>
+                                </Border>
+
+
+
+
+                            </StackPanel>
+
+                            <TextBlock  FontSize="15" TextElement.Foreground="{DynamicResource MaterialDesignBodyLight}">
+                     *Ýükläp alanyňyzdan soň APK faýllary öz telefonyňyza
+                    <LineBreak/>
+                     gurnamaly...
+                            </TextBlock>
+
+                        </StackPanel>
+                        <Border Width="300" Height="370" Margin="0 -50 -300 0">
+                            <Border.Background>
+                                <ImageBrush >
+                                    <ImageBrush.ImageSource>
+                                        <DrawingImage  PresentationOptions:Freeze="True">
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup>
+                                                    <DrawingGroup>
+                                                        <GeometryDrawing Brush="Gray" Geometry="F1M201.5,157C203.433,157 205,155.433 205,153.5 205,151.567 203.433,150 201.5,150 199.567,150 198,151.567 198,153.5 198,155.433 199.567,157 201.5,157z"/>
+                                                        <GeometryDrawing Brush="Orange" Geometry="F1M201.5,67C203.433,67 205,65.433 205,63.5 205,61.567 203.433,60 201.5,60 199.567,60 198,61.567 198,63.5 198,65.433 199.567,67 201.5,67z M201.5,139C203.433,139 205,137.433 205,135.5 205,133.567 203.433,132 201.5,132 199.567,132 198,133.567 198,135.5 198,137.433 199.567,139 201.5,139z M201.5,121C203.433,121 205,119.433 205,117.5 205,115.567 203.433,114 201.5,114 199.567,114 198,115.567 198,117.5 198,119.433 199.567,121 201.5,121z M201.5,103C203.433,103 205,101.433 205,99.5 205,97.567 203.433,96 201.5,96 199.567,96 198,97.567 198,99.5 198,101.433 199.567,103 201.5,103z M201.5,85C203.433,85 205,83.433 205,81.5 205,79.567 203.433,78 201.5,78 199.567,78 198,79.567 198,81.5 198,83.433 199.567,85 201.5,85z M183.5,157C185.433,157 187,155.433 187,153.5 187,151.567 185.433,150 183.5,150 181.567,150 180,151.567 180,153.5 180,155.433 181.567,157 183.5,157z M183.5,67C185.433,67 187,65.433 187,63.5 187,61.567 185.433,60 183.5,60 181.567,60 180,61.567 180,63.5 180,65.433 181.567,67 183.5,67z M183.5,139C185.433,139 187,137.433 187,135.5 187,133.567 185.433,132 183.5,132 181.567,132 180,133.567 180,135.5 180,137.433 181.567,139 183.5,139z"/>
+                                                        <GeometryDrawing Brush="Gray" Geometry="F1M183.5,121C185.433,121 187,119.433 187,117.5 187,115.567 185.433,114 183.5,114 181.567,114 180,115.567 180,117.5 180,119.433 181.567,121 183.5,121z"/>
+                                                        <GeometryDrawing Brush="Orange" Geometry="F1M183.5,103C185.433,103 187,101.433 187,99.5 187,97.567 185.433,96 183.5,96 181.567,96 180,97.567 180,99.5 180,101.433 181.567,103 183.5,103z M183.5,85C185.433,85 187,83.433 187,81.5 187,79.567 185.433,78 183.5,78 181.567,78 180,79.567 180,81.5 180,83.433 181.567,85 183.5,85z M165.5,157C167.433,157 169,155.433 169,153.5 169,151.567 167.433,150 165.5,150 163.567,150 162,151.567 162,153.5 162,155.433 163.567,157 165.5,157z M165.5,67C167.433,67 169,65.433 169,63.5 169,61.567 167.433,60 165.5,60 163.567,60 162,61.567 162,63.5 162,65.433 163.567,67 165.5,67z M165.5,139C167.433,139 169,137.433 169,135.5 169,133.567 167.433,132 165.5,132 163.567,132 162,133.567 162,135.5 162,137.433 163.567,139 165.5,139z M165.5,121C167.433,121 169,119.433 169,117.5 169,115.567 167.433,114 165.5,114 163.567,114 162,115.567 162,117.5 162,119.433 163.567,121 165.5,121z M165.5,103C167.433,103 169,101.433 169,99.5 169,97.567 167.433,96 165.5,96 163.567,96 162,97.567 162,99.5 162,101.433 163.567,103 165.5,103z M165.5,85C167.433,85 169,83.433 169,81.5 169,79.567 167.433,78 165.5,78 163.567,78 162,79.567 162,81.5 162,83.433 163.567,85 165.5,85z"/>
+                                                        <GeometryDrawing Brush="Gray" Geometry="F1M147.5,157C149.433,157 151,155.433 151,153.5 151,151.567 149.433,150 147.5,150 145.567,150 144,151.567 144,153.5 144,155.433 145.567,157 147.5,157z"/>
+                                                        <GeometryDrawing Brush="Orange" Geometry="F1M147.5,67C149.433,67 151,65.433 151,63.5 151,61.567 149.433,60 147.5,60 145.567,60 144,61.567 144,63.5 144,65.433 145.567,67 147.5,67z M147.5,139C149.433,139 151,137.433 151,135.5 151,133.567 149.433,132 147.5,132 145.567,132 144,133.567 144,135.5 144,137.433 145.567,139 147.5,139z M147.5,121C149.433,121 151,119.433 151,117.5 151,115.567 149.433,114 147.5,114 145.567,114 144,115.567 144,117.5 144,119.433 145.567,121 147.5,121z M147.5,103C149.433,103 151,101.433 151,99.5 151,97.567 149.433,96 147.5,96 145.567,96 144,97.567 144,99.5 144,101.433 145.567,103 147.5,103z M147.5,85C149.433,85 151,83.433 151,81.5 151,79.567 149.433,78 147.5,78 145.567,78 144,79.567 144,81.5 144,83.433 145.567,85 147.5,85z M129.5,157C131.433,157 133,155.433 133,153.5 133,151.567 131.433,150 129.5,150 127.567,150 126,151.567 126,153.5 126,155.433 127.567,157 129.5,157z M129.5,67C131.433,67 133,65.433 133,63.5 133,61.567 131.433,60 129.5,60 127.567,60 126,61.567 126,63.5 126,65.433 127.567,67 129.5,67z M129.5,139C131.433,139 133,137.433 133,135.5 133,133.567 131.433,132 129.5,132 127.567,132 126,133.567 126,135.5 126,137.433 127.567,139 129.5,139z"/>
+                                                        <GeometryDrawing Brush="Gray" Geometry="F1M129.5,121C131.433,121 133,119.433 133,117.5 133,115.567 131.433,114 129.5,114 127.567,114 126,115.567 126,117.5 126,119.433 127.567,121 129.5,121z"/>
+                                                        <GeometryDrawing Brush="Orange" Geometry="F1M129.5,103C131.433,103 133,101.433 133,99.5 133,97.567 131.433,96 129.5,96 127.567,96 126,97.567 126,99.5 126,101.433 127.567,103 129.5,103z M129.5,85C131.433,85 133,83.433 133,81.5 133,79.567 131.433,78 129.5,78 127.567,78 126,79.567 126,81.5 126,83.433 127.567,85 129.5,85z M111.5,157C113.433,157 115,155.433 115,153.5 115,151.567 113.433,150 111.5,150 109.567,150 108,151.567 108,153.5 108,155.433 109.567,157 111.5,157z M111.5,67C113.433,67 115,65.433 115,63.5 115,61.567 113.433,60 111.5,60 109.567,60 108,61.567 108,63.5 108,65.433 109.567,67 111.5,67z M111.5,139C113.433,139 115,137.433 115,135.5 115,133.567 113.433,132 111.5,132 109.567,132 108,133.567 108,135.5 108,137.433 109.567,139 111.5,139z M111.5,121C113.433,121 115,119.433 115,117.5 115,115.567 113.433,114 111.5,114 109.567,114 108,115.567 108,117.5 108,119.433 109.567,121 111.5,121z M111.5,103C113.433,103 115,101.433 115,99.5 115,97.567 113.433,96 111.5,96 109.567,96 108,97.567 108,99.5 108,101.433 109.567,103 111.5,103z M111.5,85C113.433,85 115,83.433 115,81.5 115,79.567 113.433,78 111.5,78 109.567,78 108,79.567 108,81.5 108,83.433 109.567,85 111.5,85z"/>
+                                                        <GeometryDrawing Brush="Gray" Geometry="F1M93.5,157C95.433,157 97,155.433 97,153.5 97,151.567 95.433,150 93.5,150 91.567,150 90,151.567 90,153.5 90,155.433 91.567,157 93.5,157z"/>
+                                                        <GeometryDrawing Brush="Orange" Geometry="F1M93.5,67C95.433,67 97,65.433 97,63.5 97,61.567 95.433,60 93.5,60 91.567,60 90,61.567 90,63.5 90,65.433 91.567,67 93.5,67z M93.5,139C95.433,139 97,137.433 97,135.5 97,133.567 95.433,132 93.5,132 91.567,132 90,133.567 90,135.5 90,137.433 91.567,139 93.5,139z M93.5,121C95.433,121 97,119.433 97,117.5 97,115.567 95.433,114 93.5,114 91.567,114 90,115.567 90,117.5 90,119.433 91.567,121 93.5,121z M93.5,103C95.433,103 97,101.433 97,99.5 97,97.567 95.433,96 93.5,96 91.567,96 90,97.567 90,99.5 90,101.433 91.567,103 93.5,103z M93.5,85C95.433,85 97,83.433 97,81.5 97,79.567 95.433,78 93.5,78 91.567,78 90,79.567 90,81.5 90,83.433 91.567,85 93.5,85z M75.5,67C77.433,67 79,65.433 79,63.5 79,61.567 77.433,60 75.5,60 73.567,60 72,61.567 72,63.5 72,65.433 73.567,67 75.5,67z M75.5,139C77.433,139 79,137.433 79,135.5 79,133.567 77.433,132 75.5,132 73.567,132 72,133.567 72,135.5 72,137.433 73.567,139 75.5,139z M75.5,121C77.433,121 79,119.433 79,117.5 79,115.567 77.433,114 75.5,114 73.567,114 72,115.567 72,117.5 72,119.433 73.567,121 75.5,121z"/>
+                                                        <GeometryDrawing Brush="Gray" Geometry="F1M75.5,103C77.433,103 79,101.433 79,99.5 79,97.567 77.433,96 75.5,96 73.567,96 72,97.567 72,99.5 72,101.433 73.567,103 75.5,103z"/>
+                                                        <GeometryDrawing Brush="Orange" Geometry="F1M75.5,85C77.433,85 79,83.433 79,81.5 79,79.567 77.433,78 75.5,78 73.567,78 72,79.567 72,81.5 72,83.433 73.567,85 75.5,85z M57.5,67C59.433,67 61,65.433 61,63.5 61,61.567 59.433,60 57.5,60 55.567,60 54,61.567 54,63.5 54,65.433 55.567,67 57.5,67z M57.5,121C59.433,121 61,119.433 61,117.5 61,115.567 59.433,114 57.5,114 55.567,114 54,115.567 54,117.5 54,119.433 55.567,121 57.5,121z M57.5,103C59.433,103 61,101.433 61,99.5 61,97.567 59.433,96 57.5,96 55.567,96 54,97.567 54,99.5 54,101.433 55.567,103 57.5,103z M57.5,85C59.433,85 61,83.433 61,81.5 61,79.567 59.433,78 57.5,78 55.567,78 54,79.567 54,81.5 54,83.433 55.567,85 57.5,85z M39.5,67C41.433,67 43,65.433 43,63.5 43,61.567 41.433,60 39.5,60 37.567,60 36,61.567 36,63.5 36,65.433 37.567,67 39.5,67z M39.5,103C41.433,103 43,101.433 43,99.5 43,97.567 41.433,96 39.5,96 37.567,96 36,97.567 36,99.5 36,101.433 37.567,103 39.5,103z M39.5,85C41.433,85 43,83.433 43,81.5 43,79.567 41.433,78 39.5,78 37.567,78 36,79.567 36,81.5 36,83.433 37.567,85 39.5,85z"/>
+                                                        <GeometryDrawing Brush="Gray" Geometry="F1M21.5,67C23.433,67 25,65.433 25,63.5 25,61.567 23.433,60 21.5,60 19.567,60 18,61.567 18,63.5 18,65.433 19.567,67 21.5,67z"/>
+                                                        <GeometryDrawing Brush="Orange" Geometry="F1M3.5,67C5.433,67 7,65.433 7,63.5 7,61.567 5.433,60 3.5,60 1.567,60 0,61.567 0,63.5 0,65.433 1.567,67 3.5,67z M21.5,85C23.433,85 25,83.433 25,81.5 25,79.567 23.433,78 21.5,78 19.567,78 18,79.567 18,81.5 18,83.433 19.567,85 21.5,85z"/>
+                                                        <GeometryDrawing Brush="Orange" Geometry="F1M601,24C607.627,24 613,18.627 613,12 613,5.373 607.627,0 601,0 594.373,0 589,5.373 589,12 589,18.627 594.373,24 601,24z"/>
+                                                        <GeometryDrawing Brush="Blue" Geometry="F1M535.5,769C578.3,769 613,734.3 613,691.5 613,648.7 578.3,614 535.5,614 492.7,614 458,648.7 458,691.5 458,734.3 492.7,769 535.5,769z"/>
+                                                        <GeometryDrawing Pen="{StaticResource Pen1}" Geometry="F1M535.5,747.9C566.7,747.9 591.9,722.6 591.9,691.5 591.9,660.3 566.6,635.1 535.5,635.1 504.3,635.1 479.1,660.4 479.1,691.5 479.1,722.7 504.3,747.9 535.5,747.9z M535.5,711.2C546.4,711.2 555.2,702.4 555.2,691.5 555.2,680.6 546.4,671.8 535.5,671.8 524.6,671.8 515.8,680.6 515.8,691.5 515.8,702.4 524.6,711.2 535.5,711.2z"/>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </ImageBrush.ImageSource>
+                                </ImageBrush>
+                            </Border.Background>
+                        </Border>
+                        <Image    HorizontalAlignment="Center" Width="300" Height="300" Source="{Binding videoBeletModel.videophone}"/>
+
+                    </WrapPanel>
+
+
+
+                </Grid>
+                <Border Panel.ZIndex="0">
+                    <Ellipse Width="700" Height="700"  Margin="1250 -400 0 0" Opacity="0.35" VerticalAlignment="Bottom" Fill="#e7eaf3"/>
+                </Border>
+
+
+
+                <StackPanel Margin="0 -250 0 0">
+                    <TextBlock HorizontalAlignment="Center" Margin="0 30 0 20" Text="Dünýä garaýşyňyzy giňeldiň." FontSize="20" FontWeight="Medium"/>
+                    <TextBlock HorizontalAlignment="Center" Text="Goşundynyň aýratynlyklary:" FontSize="25" FontWeight="Medium"/>
+                </StackPanel>
+
+                
+
+
+                <WrapPanel HorizontalAlignment="Center" Margin="100 60 0 0">
+
+
+                    <StackPanel  Width="300" Margin="0 0 0 50" >
+                        <StackPanel Margin="0 0 0 50" >
+                            <TextBlock Grid.Column="0"  Grid.Row="0" FontWeight="Medium" Text="HD" FontSize="25"   />
+                            <TextBlock Grid.Column="0" Grid.Row="1" FontSize="14" FontWeight="Medium"   Text="Ýokary hili wideolar"/>
+                            <TextBlock TextElement.Foreground="{StaticResource MaterialDesignBodyLight}" Grid.Column="0" Grid.Row="2" FontSize="12" Foreground="Gray"   FontWeight="Normal">
+                            Her dürli hilde wideolar görkmek, Ýagny 4K,
+                            <LineBreak/>
+                             2K, FullHD, HD we beýlekiler.
+
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel >
+                            <materialDesign:PackIcon Width="30" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Height="30" Kind="Television" />
+
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" FontSize="14" FontWeight="Medium"  Text="Enjamlar"/>
+                            <TextBlock TextElement.Foreground="{StaticResource MaterialDesignBodyLight}" Grid.Column="0" Grid.Row="2" FontSize="12" Foreground="Gray"    FontWeight="Normal">
+                            Goşundyny Android TV de ulanmak.
+
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+
+
+                    <StackPanel Width="300" Margin="0 0 0 50"  >
+                        <StackPanel Margin="0 0 0 52" >
+                            <materialDesign:PackIcon    Grid.Column="1"   Grid.Row="0" Width="40" Height="30"  HorizontalAlignment="Left" Kind="MusicNoteEighth" />
+
+
+                            <TextBlock   Grid.Column="1" Grid.Row="1" FontSize="14"
+                                   FontWeight="Medium"
+                                   Text="Aýdym-sazlar diňlemek" />
+                            <TextBlock  Grid.Column="1" Grid.Row="2" FontSize="12" TextElement.Foreground="{StaticResource MaterialDesignBodyLight}"
+                                   Foreground="Gray"
+                                   FontWeight="Normal">
+                            Aýdym-sazlar diňlemek, görmek we 
+                            <LineBreak />
+                             fonowy režimde diňlemek.
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel  >
+                            <materialDesign:PackIcon  Grid.Column="1" VerticalAlignment="Top" Grid.Row="0" Width="40" Height="30"  HorizontalAlignment="Left"  Kind="AccountGroup" />
+
+                            <TextBlock  Grid.Column="1" Grid.Row="1" FontSize="14"
+                                   FontWeight="Medium"
+                                   Text="Kanallar "/>
+                            <TextBlock  Grid.Column="1" Grid.Row="2" FontSize="12" TextElement.Foreground="{StaticResource MaterialDesignBodyLight}"
+                                   Foreground="Gray"
+                                   FontWeight="Normal">
+                            Halan kanallaryňyza ýazylmak.
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Width="300"  Margin="0 0 0 50" >
+                        <StackPanel Margin="0 0 0 42" >
+                            <materialDesign:PackIcon Height="30" Width="30"  Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Kind="ArrowDownCircle" />
+
+
+                            <TextBlock FontSize="14" Grid.Column="2" Grid.Row="1"
+                                   FontWeight="Medium"
+                                   Text="Ýükläp almak" />
+                            <TextBlock FontSize="12" Grid.Column="2" Grid.Row="2" TextElement.Foreground="{StaticResource MaterialDesignBodyLight}"
+                                   Foreground="Gray"
+                                   FontWeight="Normal">
+                             Wideolary we audiolary her dürli hilde 
+                            <LineBreak />
+                             ýükläp almak.
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <materialDesign:PackIcon Width="30" Margin="0 0 0 10" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Height="30" Kind="MovieOpenRemove" />
+                            <TextBlock FontSize="14" Grid.Column="2" Grid.Row="1"
+                                   FontWeight="Medium"
+                                   Text="Filmler we seriallar " />
+                            <TextBlock FontSize="12" Grid.Column="2" Grid.Row="2" TextElement.Foreground="{StaticResource MaterialDesignBodyLight}"
+                                   Foreground="Gray"
+                                   FontWeight="Normal">
+                              Meşhur türk we daşary ýurt seriallary görmek.
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+
+                    
+                </WrapPanel>
+ 
+
+
+                <Border  CornerRadius="15" Background="#2f72ed" Margin="0 0 0 30" Width="700" Height="90">
+
+                    <Grid>
+                        <Border Width="90" Height="90" Margin="-550  0 0 0">
+                            <Border.Background>
+                                <ImageBrush>
+                                    <ImageBrush.ImageSource>
+                                        <DrawingImage   PresentationOptions:Freeze="True">
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup>
+                                                    <DrawingGroup>
+                                                        <DrawingGroup.Transform>
+                                                            <TranslateTransform X="-19.0825119018555" Y="-19"/>
+                                                        </DrawingGroup.Transform>
+                                                        <DrawingGroup>
+                                                            <GeometryDrawing Geometry="F1M61.5,49.9C66.4,39.4 61.9,26.9 51.3,22 40.7,17.1 28.3,21.6 23.4,32.2 21.9,35.5 21.2,38.9 21.5,42.2 21.3,55 30.1,68.8 30.1,68.8L33.6,61.4 34.1,60.3C44.5,64.8,56.7,60.3,61.5,49.9z">
+                                                                <GeometryDrawing.Brush>
+                                                                    <SolidColorBrush Color="Gray" Opacity="0.5"/>
+                                                                </GeometryDrawing.Brush>
+                                                            </GeometryDrawing>
+                                                            <GeometryDrawing Brush="Orange" Geometry="F1M31.2,60.3L27.7,67.7C27.7,67.7,14.9,47.6,20.5,33.5L39.5,42.4 31.2,60.3z"/>
+                                                            <GeometryDrawing Brush="Orange" Geometry="F1M61.1,40C61.1,51.598 51.698,61 40.1,61 28.502,61 19.1,51.598 19.1,40 19.1,28.402 28.502,19 40.1,19 51.698,19 61.1,28.402 61.1,40z"/>
+                                                            <GeometryDrawing Brush="White" Geometry="F1M44.5,30.6L44.5,30.6C43.1,29.9,41.5,30.6,40.9,32.1L36.8,44.7C36.5,45.8,37.9,46.4,38.5,45.5L45.5,34.3C46.4,33,45.9,31.2,44.5,30.6L44.5,30.6z"/>
+                                                            <GeometryDrawing Brush="White" Geometry="F1M37.3,48.3C37.3,48.908 36.808,49.4 36.2,49.4 35.592,49.4 35.1,48.908 35.1,48.3 35.1,47.692 35.592,47.2 36.2,47.2 36.808,47.2 37.3,47.692 37.3,48.3z"/>
+                                                        </DrawingGroup>
+                                                        <DrawingGroup>
+                                                            <GeometryDrawing Geometry="F1M116.9,72.8C117.1,74.3,116.9,75.8,116.7,77.3">
+                                                                <GeometryDrawing.Pen>
+                                                                    <Pen Thickness="1.73" StartLineCap="Round" EndLineCap="Round" DashCap="Round" LineJoin="Round">
+                                                                        <Pen.Brush>
+                                                                            <SolidColorBrush Color="#80BDC5D1" Opacity="0.5"/>
+                                                                        </Pen.Brush>
+                                                                    </Pen>
+                                                                </GeometryDrawing.Pen>
+                                                            </GeometryDrawing>
+                                                            <GeometryDrawing Geometry="F1M97.8,49.9C106.7,52.3,113.3,58.9,115.7,67.1">
+                                                                <GeometryDrawing.Pen>
+                                                                    <Pen Thickness="1.73" StartLineCap="Round" EndLineCap="Round" DashCap="Round" LineJoin="Round">
+                                                                        <Pen.Brush>
+                                                                            <SolidColorBrush Color="#80BDC5D1" Opacity="0.5"/>
+                                                                        </Pen.Brush>
+                                                                    </Pen>
+                                                                </GeometryDrawing.Pen>
+                                                            </GeometryDrawing>
+                                                            <GeometryDrawing Geometry="F1M94.7,51.1C111.7,55.5 122.1,72.8 117.7,89.7 115.4,98.4 109.8,105.5 102.5,109.6L100.8,124.3 89.3,113.6C86,113.8 82.4,113.6 79,112.7 62,108.3 51.6,91 56,74.1 60.3,57.1 77.7,46.9 94.7,51.1z">
+                                                                <GeometryDrawing.Brush>
+                                                                    <SolidColorBrush Color="#FFBDC5D1" Opacity="0.3"/>
+                                                                </GeometryDrawing.Brush>
+                                                            </GeometryDrawing>
+                                                            <GeometryDrawing Brush="White" Geometry="F1M99.5,43.1C116.5,47.5 126.9,64.8 122.5,81.7 120.2,90.4 114.6,97.5 107.3,101.6L105.6,116.3 94.1,105.6C90.8,105.8 87.2,105.6 83.8,104.7 66.8,100.3 56.4,83 60.8,66.1 65.1,49 82.6,38.7 99.5,43.1z"/>
+                                                            <GeometryDrawing Geometry="M105.3,79.4C105.3,80.836 104.136,82 102.7,82 101.264,82 100.1,80.836 100.1,79.4 100.1,77.964 101.264,76.8 102.7,76.8 104.136,76.8 105.3,77.964 105.3,79.4z">
+                                                                <GeometryDrawing.Pen>
+                                                                    <Pen Thickness="1.73">
+                                                                        <Pen.Brush>
+                                                                            <SolidColorBrush Color="#80377DFF" Opacity="0.5"/>
+                                                                        </Pen.Brush>
+                                                                    </Pen>
+                                                                </GeometryDrawing.Pen>
+                                                            </GeometryDrawing>
+                                                            <GeometryDrawing Geometry="M94.2,74.2C94.2,75.636 93.036,76.8 91.6,76.8 90.164,76.8 89,75.636 89,74.2 89,72.764 90.164,71.6 91.6,71.6 93.036,71.6 94.2,72.764 94.2,74.2z">
+                                                                <GeometryDrawing.Pen>
+                                                                    <Pen Thickness="1.73">
+                                                                        <Pen.Brush>
+                                                                            <SolidColorBrush Color="#80377DFF" Opacity="0.5"/>
+                                                                        </Pen.Brush>
+                                                                    </Pen>
+                                                                </GeometryDrawing.Pen>
+                                                            </GeometryDrawing>
+                                                            <GeometryDrawing Pen="{StaticResource Pen1}" Geometry="F1M83.1,69C83.1,70.436 81.936,71.6 80.5,71.6 79.064,71.6 77.9,70.436 77.9,69 77.9,67.564 79.064,66.4 80.5,66.4 81.936,66.4 83.1,67.564 83.1,69z"/>
+                                                        </DrawingGroup>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </ImageBrush.ImageSource>
+                                </ImageBrush>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Margin="0 3 0 0" Width="auto" Height="auto" HorizontalAlignment="Center">
+                            <TextBlock FontWeight="Medium" HorizontalAlignment="Center" Text="Soragyňyz galdymy?" Foreground="White" FontSize="22"  />
+                            <TextBlock  Text="  Sagat 9:00-18:00-e çenli bize ýüzlenip" Foreground="DarkGray" FontSize="18" Width="auto" Height="auto" />
+                            <TextBlock  Text=" bilersiňiz." HorizontalAlignment="Center" Foreground="DarkGray" FontSize="18" Width="auto" Height="auto" />
+
+                        </StackPanel>
+                        <Border Margin="0 0 50 0" CornerRadius="10"   Background="White" HorizontalAlignment="Right"     VerticalAlignment="Center">
+                            <Button Background="Transparent" Foreground="Black" BorderThickness="0" HorizontalAlignment="Right" Content=" Jaň et " Width="auto" Height="40" FontSize="18"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <TextBlock Margin="0 20 0 0" HorizontalAlignment="Center" Text=" Wajyp soraglar " FontSize="30" FontWeight="Medium"/>
+                <StackPanel Margin="0 40 0 50">
+                    <TreeView  MinWidth="220" BorderThickness="0 0 0 1" BorderBrush="Gray">
+                        <TreeViewItem Header="Belet Video näme ?" FontSize="20">
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <TextBlock>
+                            Belet Video portaly dünýäniň meşhur we iň oňat döredijilerinden ajaýyp wideolar  
+                            <LineBreak />
+                            ýygyndylaryny görmek mümkinçiligi. Siziň üçin jemlenen bilim beriji, gyzykly we täsin kontent.
+                            <LineBreak />
+                             Özüňizi we biznesiňizi täze we döwrebap pikirler bilen özgerdiň.
+                                    </TextBlock>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+
+                        </TreeViewItem>
+
+
+                    </TreeView>
+                    <TreeView  MinWidth="220"
+                               BorderThickness="0 0 0 1"
+                               BorderBrush="Gray">
+                        <TreeViewItem Header=" Haýsy enjamlar we operasion sistema gerek ?"
+                                      FontSize="20">
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <TextBlock>
+                            Belet Video portaly häzirki wagtda ähli “Android” mobil operasion sistemaly enjamlarda işleýär,
+                            <LineBreak />
+                            iň azyndan “Android” 5.1 görnüşi bolmalydyr.
+                                    </TextBlock>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+
+                        </TreeViewItem>
+
+
+                    </TreeView>
+                    <TreeView  MinWidth="220" >
+                        <TreeViewItem Header=" Belet Video portalynyň bahasy ?"   FontSize="20">
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <TextBlock>
+                            Belet Video portaly hemmeler üçin mugt.
+                            <LineBreak />
+                            ýygyndylaryny görmek mümkinçiligi. Siziň üçin jemlenen bilim beriji, gyzykly we täsin kontent.
+                            <LineBreak />
+                             Özüňizi we biznesiňizi täze we döwrebap pikirler bilen özgerdiň.
+                                    </TextBlock>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+
+                        </TreeViewItem>
+
+
+                    </TreeView>
+                </StackPanel>
+
+
+                <StackPanel Background="#1d3159"
+                                Margin="0 0 0 0">
+                    <WrapPanel Width="auto"
+                                    Margin="0 100 0 0"
+                                    HorizontalAlignment="Center">
+
+                        <Image VerticalAlignment="Top"
+                                   Source="{Binding videoBeletModel.geometry1}"
+                                   Width="180"
+                                   Margin="80 15 20 0"
+                                   Height="130" />
+                        <StackPanel  Margin="20 15 0 0">
+                            <TextBlock HorizontalAlignment="Left"
+                                           Margin="15 0 0 10 "
+                                           FontWeight="Medium"
+                                           Foreground="White"
+                                           FontSize="25"
+                                           Text="Kärhana" />
+                            <Button HorizontalAlignment="Left"
+                                        FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                Command="{Binding BizBarada}"
+                                        Content="Biz barada"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="auto" />
+                            <Button FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                        Content="Kontaktlarymyz"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                    Command="{Binding BeletAcc}"
+                                        Height="auto" />
+                            <Button FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                        HorizontalAlignment="Left"
+                                Command="{Binding KarTazelik}"
+                                        Content="Täzelikler"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="auto" />
+                        </StackPanel>
+                        <StackPanel  Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Goldaw"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Content="Goldaw Merkezi"
+                                       Command="{Binding goldawmerkezi}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+                            <StackPanel Orientation="Horizontal"
+                                       Margin="-10 0 0 0"
+                                            HorizontalAlignment="Center">
+                                <materialDesign:PackIcon x:Name="phoneicon" MouseDown="first_MouseDown"  Height="30" Width="30" Kind="PhoneInTalkOutline" />
+                                <materialDesign:PackIcon x:Name="telegramicon" MouseDown="second_MouseDown" Height="30" Width="30" Margin="10 0" Kind="SendCircleOutline" />
+                                <materialDesign:PackIcon x:Name="emailicon" MouseDown="third_MouseDown" Height="30" Width="30" Kind="EmailSyncOutline" />
+
+                                <x:Code>
+                                    <![CDATA[            
+        private void first_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+             Process.Start("https://belet.com.tm/tel:+993-12-75-02-08");
+        }
+                                    private void second_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://t.me/belet_video_forum");
+        }
+                                    private void third_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+             Process.Start("mailto:info@belet.me");
+        }
+    ]]>
+                                </x:Code>
+
+
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel   Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Belet Video"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"        Command="{Binding myhabathyzmatlar}"
+                                        Foreground="White"
+                                        Content="Mahabat hyzmatlary"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+
+                        </StackPanel>
+                        <StackPanel   Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Ýerleşýän salgymyz"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Height="auto"
+                                    Command="{Binding maplocation}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal">
+                                <TextBlock>
+                             Aşgabat şäher, 
+                            <LineBreak />
+                            Berkararlyk etraby,
+                            <LineBreak />
+                             2127(G.Gulyýew) köçesi, 
+                            <LineBreak />
+                            38-nji jaý.
+                                </TextBlock>
+                            </Button>
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Height="auto"
+                                    Command="{Binding callbtn}"
+                                        FontSize="15"
+                                        Content=" +993 (12) 75-02-08"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+
+
+                        </StackPanel>
+
+                    </WrapPanel>
+
+                    <Border BorderThickness="0.5"
+                                BorderBrush="Gray" />
+                    <WrapPanel>
+                        <Button Foreground="White"
+                                    Content="Gizlinlik syýasaty    /"
+                                    Background="Transparent"
+                                Command="{Binding confidbtn}"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content="Ulanmak düzgünleri    /"
+                                    Background="Transparent"
+                                Command="{Binding confidbtn}"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content=" Belet Speed     /"
+                                Command="{Binding beletspeed}"
+                                    Background="Transparent"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content="Türkmentelekom    "
+                                Command="{Binding turkmentelekom}"
+                                    Background="Transparent"
+                                    BorderThickness="0" />
+                    </WrapPanel>
+                    <Button Foreground="White"
+                                Content="JAN tehnologiýa HJ - Ähli hukuklar goralan."
+                                FontSize="16"
+                                Margin="0 10 0 50"
+                                Background="Transparent"
+                                BorderThickness="0" />
+
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+        </ScrollViewer>
+    </Grid>
+   
+</Window>

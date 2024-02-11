@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tbl_rb_languages",
+  "info": {
+    "singularName": "tbl-rb-language",
+    "pluralName": "tbl-rb-languages",
+    "displayName": "Tbl_RB_language"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "language_name": {
+      "type": "string"
+    },
+    "tbl_rb_medias": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::company-info.company-info",
+      "mappedBy": "tbl_rb_languages"
+    }
+  }
+}

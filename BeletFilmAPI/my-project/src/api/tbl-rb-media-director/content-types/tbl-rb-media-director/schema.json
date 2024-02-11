@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tbl_rb_media_directors",
+  "info": {
+    "singularName": "tbl-rb-media-director",
+    "pluralName": "tbl-rb-media-directors",
+    "displayName": "Tbl_RB_media_director",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "director_name": {
+      "type": "string"
+    },
+    "tbl_rb_medias": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::company-info.company-info",
+      "mappedBy": "tbl_rb_media_directors"
+    }
+  }
+}

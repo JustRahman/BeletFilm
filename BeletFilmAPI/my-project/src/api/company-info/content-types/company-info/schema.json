@@ -1,0 +1,88 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_infos",
+  "info": {
+    "singularName": "company-info",
+    "pluralName": "company-infos",
+    "displayName": "tbl_RB_media",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tbl_rb_geners": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tbl-rb-gener.tbl-rb-gener",
+      "inversedBy": "tbl_rb_medias"
+    },
+    "media_name": {
+      "type": "string"
+    },
+    "media_description": {
+      "type": "text"
+    },
+    "media_full_name": {
+      "type": "string"
+    },
+    "tbl_rb_media_actors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tbl-rb-media-actor.tbl-rb-media-actor",
+      "inversedBy": "tbl_rb_medias"
+    },
+    "tbl_rb_languages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tbl-rb-language.tbl-rb-language",
+      "inversedBy": "tbl_rb_medias"
+    },
+    "tbl_rb_year": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tbl-rb-year.tbl-rb-year",
+      "inversedBy": "tbl_rb_medias"
+    },
+    "tbl_rb_media_directors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tbl-rb-media-director.tbl-rb-media-director",
+      "inversedBy": "tbl_rb_medias"
+    },
+    "tbl_rb_countries": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tbl-rb-country.tbl-rb-country",
+      "inversedBy": "tbl_rb_medias"
+    },
+    "media_picture1": {
+      "type": "string"
+    },
+    "media_picture2": {
+      "type": "string"
+    },
+    "firstrating": {
+      "type": "float"
+    },
+    "secondrating": {
+      "type": "float"
+    },
+    "acceptableyear": {
+      "type": "integer"
+    },
+    "duration": {
+      "type": "float"
+    },
+    "tbl_rb_media_types": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::company-media-type.company-media-type",
+      "inversedBy": "tbl_rb_medias"
+    },
+    "media_path": {
+      "type": "string"
+    }
+  }
+}

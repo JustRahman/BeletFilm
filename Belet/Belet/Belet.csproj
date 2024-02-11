@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{273E3716-8E5D-4EDB-9647-1E1F079E1154}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Belet</RootNamespace>
+    <AssemblyName>Belet</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>packages\CommonServiceLocator.2.0.7\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.Desktop.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Xpo.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Mvvm.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Mvvm.v21.1.DataModel, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Mvvm.v21.1.DataModel.WCF, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Mvvm.v21.1.ViewModel, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v21.1.UI, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Controls.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Core.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Core.v21.1.Extensions, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v21.1, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v21.1.Extensions, Version=21.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=3.0.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialDesignColors.3.0.0-ci346\lib\net462\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=5.0.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialDesignThemes.5.0.0-ci346\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions">
+      <HintPath>..\..\..\..\..\Users\SUMBAR\Downloads\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=7.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Abstractions.7.1.0-preview\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=7.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.JsonWebTokens.7.1.0-preview\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=7.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Logging.7.1.0-preview\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=7.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Tokens.7.1.0-preview\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionDlg.AadAuthenticationProvider, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Users\SUMBAR\Desktop\Новая папка (4)\ConsoleApp1\bin\Debug\Microsoft.SqlServer.ConnectionDlg.AadAuthenticationProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\..\..\..\..\Users\SUMBAR\Desktop\Новая папка (4)\ConsoleApp1\bin\Debug\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=7.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\System.IdentityModel.Tokens.Jwt.7.1.0-preview\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.5.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.4.7.2\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.4.7.2\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Twilio, Version=6.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Twilio.6.10.1\lib\net451\Twilio.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Command\MyDelegateCommand.cs" />
+    <Compile Include="Helper\dk_MultiBindingConverter.cs" />
+    <Compile Include="Model\ArakesmeModel.cs" />
+    <Compile Include="Model\ASTUBeletModel.cs" />
+    <Compile Include="Model\ASTUBeletTazelikModel.cs" />
+    <Compile Include="Model\BeletBaradaModel.cs" />
+    <Compile Include="Model\BeletFilmModel.cs" />
+    <Compile Include="Model\BeletKinoTazelikModel.cs" />
+    <Compile Include="Model\BeletSeperateArakesmeModel.cs" />
+    <Compile Include="Model\ChoosePageModel.cs" />
+    <Compile Include="Model\GineliyenBeletModel.cs" />
+    <Compile Include="Model\JsonPersonIdClass.cs" />
+    <Compile Include="Model\LogginPasswordModel.cs" />
+    <Compile Include="Model\Login\Attributes.cs" />
+    <Compile Include="Model\Login\Datum.cs" />
+    <Compile Include="Model\Login\Login.cs" />
+    <Compile Include="Model\Login\Meta.cs" />
+    <Compile Include="Model\Login\Pagination.cs" />
+    <Compile Include="Model\MainChoosePageModel.cs" />
+    <Compile Include="Model\MediaCountry\AttributesCountry.cs" />
+    <Compile Include="Model\MediaCountry\MediaCountry.cs" />
+    <Compile Include="Model\MediaCountry\DatumCountry.cs" />
+    <Compile Include="Model\MediaCountry\MetaCountry.cs" />
+    <Compile Include="Model\MediaCountry\PaginationCountry.cs" />
+    <Compile Include="Model\MediaGener\AttributesGener.cs" />
+    <Compile Include="Model\MediaGener\DatumGener.cs" />
+    <Compile Include="Model\MediaGener\MediaGener.cs" />
+    <Compile Include="Model\MediaGener\MetaGener.cs" />
+    <Compile Include="Model\MediaGener\PaginationGener.cs" />
+    <Compile Include="Model\MediaType\AttributesType.cs" />
+    <Compile Include="Model\MediaType\DatumType.cs" />
+    <Compile Include="Model\MediaType\MediaType.cs" />
+    <Compile Include="Model\MediaType\MetaType.cs" />
+    <Compile Include="Model\MediaType\PaginationType.cs" />
+    <Compile Include="Model\Media\Converter.cs" />
+    <Compile Include="Model\Media\CountryNameConverter.cs" />
+    <Compile Include="Model\Media\Dat.cs" />
+    <Compile Include="Model\Media\Data.cs" />
+    <Compile Include="Model\Media\DirectorNameConverter.cs" />
+    <Compile Include="Model\Media\FluffyAttributes.cs" />
+    <Compile Include="Model\Media\LanguageNameConverter.cs" />
+    <Compile Include="Model\Media\Media.cs" />
+    <Compile Include="Model\Media\MediaDatum.cs" />
+    <Compile Include="Model\Media\MediaTypeData.cs" />
+    <Compile Include="Model\Media\MediaTypeNameConverter.cs" />
+    <Compile Include="Model\Media\Meta.cs" />
+    <Compile Include="Model\Media\NecessaryMedia.cs" />
+    <Compile Include="Model\Media\Pagination.cs" />
+    <Compile Include="Model\Media\ParseStringConverter.cs" />
+    <Compile Include="Model\Media\PurpleAttributes.cs" />
+    <Compile Include="Model\Media\StickyAttributes.cs" />
+    <Compile Include="Model\Media\TblRb.cs" />
+    <Compile Include="Model\Media\TblRbCountriesClass.cs" />
+    <Compile Include="Model\Media\TblRbGeners.cs" />
+    <Compile Include="Model\Media\TblRbGenersDatum.cs" />
+    <Compile Include="Model\Media\TblRbMediaDirectorClass.cs" />
+    <Compile Include="Model\Media\TblRbMediaType.cs" />
+    <Compile Include="Model\Media\TblRbYear.cs" />
+    <Compile Include="Model\Media\TentacledAttributes.cs" />
+    <Compile Include="Model\NewMedia\Dat.cs" />
+    <Compile Include="Model\NewMedia\DataAttributes.cs" />
+    <Compile Include="Model\NewMedia\FluffyAttributes.cs" />
+    <Compile Include="Model\NewMedia\Media.cs" />
+    <Compile Include="Model\NewMedia\MediaDatum.cs" />
+    <Compile Include="Model\NewMedia\Meta.cs" />
+    <Compile Include="Model\NewMedia\Pagination.cs" />
+    <Compile Include="Model\NewMedia\PurpleAttributes.cs" />
+    <Compile Include="Model\NewMedia\TblRb.cs" />
+    <Compile Include="Model\NewMedia\TblRbGeners.cs" />
+    <Compile Include="Model\NewMedia\TblRbGenersDatum.cs" />
+    <Compile Include="Model\NewMedia\TblRbMediaTypes.cs" />
+    <Compile Include="Model\NewMedia\TblRbMediaTypesDatum.cs" />
+    <Compile Include="Model\NewMedia\TblRbYear.cs" />
+    <Compile Include="Model\NewMedia\TentacledAttributes.cs" />
+    <Compile Include="Model\PersonInfoClass.cs" />
+    <Compile Include="Model\PostCreateClass.cs" />
+    <Compile Include="Model\PreviousMediaModel.cs" />
+    <Compile Include="Model\Reactions\AttributesReaction.cs" />
+    <Compile Include="Model\Reactions\DatumReactions.cs" />
+    <Compile Include="Model\Reactions\FluffyAttributesReactions.cs" />
+    <Compile Include="Model\Reactions\Reaction.cs" />
+    <Compile Include="Model\Reactions\MetaReaction.cs" />
+    <Compile Include="Model\Reactions\PaginationReaction.cs" />
+    <Compile Include="Model\Reactions\UserLogsDatumReactions.cs" />
+    <Compile Include="Model\Reactions\UserLogsReactions.cs" />
+    <Compile Include="Model\RelayCommand.cs" />
+    <Compile Include="Model\StaticsForTheme.cs" />
+    <Compile Include="Model\TazelikBeletModel.cs" />
+    <Compile Include="Model\TelekomBeletModel.cs" />
+    <Compile Include="Model\TelekomBeletTazelikModel.cs" />
+    <Compile Include="Model\TunerBeletModel.cs" />
+    <Compile Include="Model\TVBeletModel.cs" />
+    <Compile Include="Model\UserLog\AttributesLog.cs" />
+    <Compile Include="Model\UserLog\DatumLog.cs" />
+    <Compile Include="Model\UserLog\MetaLog.cs" />
+    <Compile Include="Model\UserLog\PaginationLog.cs" />
+    <Compile Include="Model\UserLog\UserLogClass.cs" />
+    <Compile Include="Model\UserReactionModel.cs" />
+    <Compile Include="Model\UserReaction\Attributes.cs" />
+    <Compile Include="Model\UserReaction\Datum.cs" />
+    <Compile Include="Model\UserReaction\Meta.cs" />
+    <Compile Include="Model\UserReaction\Pagination.cs" />
+    <Compile Include="Model\UserReaction\UserReaction.cs" />
+    <Compile Include="Model\VideoBeletModel.cs" />
+    <Compile Include="TextBlockConverter\EnumarableToTextConverter.cs" />
+    <Compile Include="ViewModels\ArakesmeBeletViewModel.cs" />
+    <Compile Include="ViewModels\ASTUBeletTazelikViewModel.cs" />
+    <Compile Include="ViewModels\ASTUBeletViewModel.cs" />
+    <Compile Include="ViewModels\BeletBaradaBeletBaradaViewModel.cs" />
+    <Compile Include="ViewModels\BeletFilmViewModel.cs" />
+    <Compile Include="ViewModels\BeletKinoTazelikViewModel.cs" />
+    <Compile Include="ViewModels\BeletSeperateArakesmeViewModel.cs" />
+    <Compile Include="ViewModels\BeletVideoPlayerViewModel.cs" />
+    <Compile Include="ViewModels\ChoosePageViewModel.cs" />
+    <Compile Include="ViewModels\GineliyenBeletViewModel.cs" />
+    <Compile Include="ViewModels\LogginPageViewModel.cs" />
+    <Compile Include="ViewModels\MainChoosePageViewModel.cs" />
+    <Compile Include="ViewModels\MainFilmPage.cs" />
+    <Compile Include="ViewModels\MainFilmPageInfoViewModel.cs" />
+    <Compile Include="ViewModels\PostJson.cs" />
+    <Compile Include="ViewModels\TazelikBeletViewModel.cs" />
+    <Compile Include="ViewModels\TelekomBeletTazelikViewModel.cs" />
+    <Compile Include="ViewModels\TelekomBeletViewModel.cs" />
+    <Compile Include="ViewModels\TunerBeletViewModel.cs" />
+    <Compile Include="ViewModels\TVBeletViewModel.cs" />
+    <Compile Include="ViewModels\VideoBeletViewModel.cs" />
+    <Compile Include="Views\ArakesmeBelet.xaml.cs">
+      <DependentUpon>ArakesmeBelet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ASTUBelet.xaml.cs">
+      <DependentUpon>ASTUBelet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ASTUBeletTazelik.xaml.cs">
+      <DependentUpon>ASTUBeletTazelik.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BeletBarada.xaml.cs">
+      <DependentUpon>BeletBarada.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BeletFilm.xaml.cs">
+      <DependentUpon>BeletFilm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BeletKinoTazelik.xaml.cs">
+      <DependentUpon>BeletKinoTazelik.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BeletSeperateArakesme.xaml.cs">
+      <DependentUpon>BeletSeperateArakesme.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BeletVideoPlayer.xaml.cs">
+      <DependentUpon>BeletVideoPlayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChoosePage.xaml.cs">
+      <DependentUpon>ChoosePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GinileyinBelet.xaml.cs">
+      <DependentUpon>GinileyinBelet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\INfo.xaml.cs">
+      <DependentUpon>INfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogginPassword.xaml.cs">
+      <DependentUpon>LogginPassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainFilmInfoPage.xaml.cs">
+      <DependentUpon>MainFilmInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainFilmPage.xaml.cs">
+      <DependentUpon>MainFilmPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainFilmPageInfoView.xaml.cs">
+      <DependentUpon>MainFilmPageInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PreviousMainFilmPage.xaml.cs">
+      <DependentUpon>PreviousMainFilmPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TazelikBelet.xaml.cs">
+      <DependentUpon>TazelikBelet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TelekomBelet.xaml.cs">
+      <DependentUpon>TelekomBelet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TelekomBeletTazelik.xaml.cs">
+      <DependentUpon>TelekomBeletTazelik.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TunerBelet.xaml.cs">
+      <DependentUpon>TunerBelet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TVBelet.xaml.cs">
+      <DependentUpon>TVBelet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VideoBelet.xaml.cs">
+      <DependentUpon>VideoBelet.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\ArakesmeBelet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ASTUBelet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ASTUBeletTazelik.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BeletBarada.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BeletFilm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BeletKinoTazelik.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BeletSeperateArakesme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BeletVideoPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChoosePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GinileyinBelet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\INfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LogginPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainFilmInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainFilmPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainFilmPageInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PreviousMainFilmPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TazelikBelet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TelekomBelet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TelekomBeletTazelik.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TunerBelet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TVBelet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VideoBelet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MediaPlayer">
+      <Guid>{22D6F304-B0F6-11D0-94AB-0080C74C7E95}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\MaterialDesignThemes.5.0.0-ci346\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.5.0.0-ci346\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\MaterialDesignThemes.5.0.0-ci346\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MaterialDesignThemes.5.0.0-ci346\build\MaterialDesignThemes.targets'))" />
+  </Target>
+</Project>

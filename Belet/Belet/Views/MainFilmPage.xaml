@@ -1,0 +1,2235 @@
+﻿<Window x:Class="Belet.Views.MainFilmPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       
+            
+             xmlns:dxmvvm1="clr-namespace:DevExpress.Mvvm.UI;assembly=DevExpress.Xpf.Core.v21.1"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+             xmlns:ViewModels="clr-namespace:Belet.ViewModels" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:MainChoosePageViewModel="clr-namespace:Belet.ViewModels"
+            WindowStartupLocation="CenterScreen" MouseLeftButtonDown="WindowMouseLeftButtonDown"
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+      
+        x:Name="Window"
+        xmlns:converters="clr-namespace:Belet.Helper"
+          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{x:Null}"  
+         WindowStyle="None"
+        AllowsTransparency="True"
+        xmlns:local="clr-namespace:Belet.Views"
+        mc:Ignorable="d"
+        Title="MainFilmPage"
+        Height="500"
+        Width="1000">
+
+    <Window.DataContext>
+        <ViewModels:MainChoosePageViewModel/>
+    </Window.DataContext>
+
+    <x:Code>
+        <![CDATA[            
+        private void WindowMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+    ]]>
+    </x:Code>
+
+    
+
+
+    <Window.Resources>
+
+        <converters:dk_MultiBindingConverter x:Key="MultiBindingConverter" />
+
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border
+                  x:Name="Border" 
+                  Grid.ColumnSpan="2"
+                  CornerRadius="0"
+                  Background="#FF3F3F3F"
+                  BorderBrush="#FF97A0A5"
+                  BorderThickness="1" />
+                <Border 
+                  Grid.Column="0"
+                  CornerRadius="0" 
+                  Margin="1" 
+                  Background="#FF3F3F3F" 
+                  BorderBrush="#FF97A0A5"
+                  BorderThickness="0,0,1,0" />
+                <Path 
+                  x:Name="Arrow"
+                  Grid.Column="1"     
+                  Fill="White"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                />
+            </Grid>
+            <!--<ControlTemplate.Triggers>
+            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#808080" />
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
+                <Setter Property="Foreground" Value="#888888"/>
+                <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+            </Trigger>
+        </ControlTemplate.Triggers>-->
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="MinWidth" Value="50"/>
+            <Setter Property="MinHeight" Value="27"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton 
+                            Name="ToggleButton" 
+                            Template="{StaticResource ComboBoxToggleButton}" 
+                            Grid.Column="2" 
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="3,3,23,3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left" />
+                            <TextBox x:Name="PART_EditableTextBox"
+                            Style="{x:Null}" 
+                            Template="{StaticResource ComboBoxTextBox}" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" 
+                            Margin="3,3,23,3"
+                            Focusable="True" 
+                            Background="#FF3F3F3F"
+                            Foreground="Green"
+                            Visibility="Hidden"
+                            IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup 
+                            Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True" 
+                            Focusable="False"
+                            PopupAnimation="Slide">
+
+                                <Grid Name="DropDown"
+                              SnapsToDevicePixels="True"                
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                x:Name="DropDownBorder"
+                                Background="#FF3F3F3F"
+
+                                BorderThickness="1"
+                                BorderBrush="#888888"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable"  Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+
+        <!-- SimpleStyles: ComboBoxItem -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border Name="Border"
+                              Padding="2"
+                              SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF4F4F4F"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    
+
+
+
+    <!--<StackPanel>
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+            <Grid  Height="500" >
+                <Grid.Background>
+                    <ImageBrush ImageSource="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Super pets.jpg"/>
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <WrapPanel Grid.Column="1" HorizontalAlignment="Left"  Margin="50 10 0 0">
+                    <Button  Command="{Binding choosepageBack}"   Margin="0 0 10 0" Width="50" Height="auto" BorderThickness="0" Background="Transparent">
+                        <Button.Content>
+                            <Image>
+                                <Image.Source >
+                                    <DrawingImage   PresentationOptions:Freeze="True">
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup>
+                                                <DrawingGroup>
+                                                    <DrawingGroup.Transform>
+                                                        <TranslateTransform X="-1.99910593032837" Y="-1"/>
+                                                    </DrawingGroup.Transform>
+                                                    <GeometryDrawing Brush="Black" Geometry="F1M12.5,15A0.5,0.5,0,0,1,12,14.5L12,1.5A0.5,0.5,0,0,1,13,1.5L13,14.5A0.5,0.5,0,0,1,12.5,15z M10,8A0.5,0.5,0,0,1,9.5,8.5L3.707,8.5 5.854,10.646A0.5,0.5,0,0,1,5.146,11.354L2.146,8.354A0.5,0.5,0,0,1,2.146,7.646L5.146,4.646A0.5,0.5,0,1,1,5.854,5.354L3.707,7.5 9.5,7.5A0.5,0.5,0,0,1,10,8z"/>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button.Content>
+                    </Button>
+                    <TextBlock Text="BeletFilm " FontSize="34" FontWeight="Bold"/>
+                    <StackPanel  Grid.Column="1" HorizontalAlignment="Right"
+                            VerticalAlignment="Top" Margin="0 17 55 0"
+                            Orientation="Horizontal">
+                        <materialDesign:PackIcon Margin="10 0" MouseDown="magnify_cmd"  Height="25" Width="25" Kind="Magnify" />
+                        <materialDesign:PackIcon MouseDown="present_btn"  Height="25" Width="25" Kind="Gift" />
+
+                        <x:Code>
+                            <![CDATA[            
+        private void present_btn(object sender, MouseButtonEventArgs e)
+        {
+             Process.Start("https://film.belet.com.tm/promo");
+        }
+                                    private void magnify_cmd(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://t.me/belet_video_forum");
+        }
+                                  
+    ]]>
+                        </x:Code>
+
+
+
+                        <materialDesign:PackIcon Width='25' Margin="10 0 0 0" VerticalAlignment="Center" Height="25" Kind="AccountCircle" />
+                        <ComboBox BorderThickness="0"
+                              Margin="0 0 30 0"
+                              VerticalAlignment="Center"
+                              Width="auto" />
+                    </StackPanel>
+                    <materialDesign:PopupBox Grid.Row="0" HorizontalAlignment="Right" Margin="0 10 20 10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25"  >
+
+                        <StackPanel>
+
+                            <Button Command="{Binding goldawmerkezi}" ToolTip="Having Trouble Loggin In?" Margin="0 8 0 0" Content="Help me"/>
+                            <Button   ToolTip="Close Application" Content="Exit Application" Command="{Binding close_application}"/>
+                            <Button   ToolTip="Close Application" Content="Minimize" Command="{Binding cmdLogin}"/>
+                            <Button   ToolTip="Close Application" Content="{Binding  filmModel.IsBigOrNormal}" Command="{Binding sizechangebtn}"/>
+
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+
+                </WrapPanel>
+
+                <ScrollViewer   VirtualizingPanel.ScrollUnit="Pixel"  Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+
+
+                    <StackPanel  Grid.Row="1"  >
+
+
+                        <StackPanel Margin="130 130 0 0" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1">
+
+                            <TextBlock  Style="{StaticResource MaterialDesignHeadline5TextBlock}" FontSize="60" Text="Дом дракона "    />
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel >
+                                    <Button x:Name="btnplay"   Margin="0 10" HorizontalAlignment="Left"      >
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Width="10">
+                                                    <Image.Source>
+                                                        <DrawingImage  PresentationOptions:Freeze="True">
+                                                            <DrawingImage.Drawing>
+                                                                <DrawingGroup>
+                                                                    <DrawingGroup>
+                                                                        <DrawingGroup.Transform>
+                                                                            <TranslateTransform X="0" Y="0.410458326339722"/>
+                                                                        </DrawingGroup.Transform>
+                                                                        <GeometryDrawing Brush="{Binding mainchoosepagemodel.brush1}" Geometry="F1M62,0.465C13.886,9.139,25,78.144,25,113L25,426C25,456.627 21.882,504.302 62,511.535 67.911,512.601 75.051,512.486 81,511.711 97.583,509.55 111.845,499.975 126,491.85 147.654,479.421 169.521,467.332 191,454.603 260.073,413.671 331.016,375.883 400,334.799 428.728,317.691 484.028,299.272 486.91,260 490.065,216.995 435.437,197.621 405,180.15 325.674,134.616 246.351,89.071 167,43.579 137.106,26.441 98.733,-6.158 62,0.465z"/>
+                                                                    </DrawingGroup>
+                                                                </DrawingGroup>
+                                                            </DrawingImage.Drawing>
+                                                        </DrawingImage>
+                                                    </Image.Source>
+                                                </Image>
+                                                <TextBlock Margin="5 0 0 2"  Foreground="{Binding mainchoosepagemodel.textblockplay}">
+                                                    Воспроизвести
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Button.Content>
+
+
+
+
+                                    </Button>
+
+                                    <dxmvvm:Interaction.Behaviors>
+                                        <dxmvvm:EventToCommand EventName="Loaded"   Command="{Binding InitializeCommand}">
+                                            <dxmvvm:EventToCommand.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                                                    <Binding ElementName="Window"/>
+                                                    <Binding ElementName="btnplay"/>
+                                                </MultiBinding>
+                                            </dxmvvm:EventToCommand.CommandParameter>
+                                        </dxmvvm:EventToCommand>
+
+                                        <dxmvvm:EventToCommand EventName="MouseEnter"   Command="{Binding MouseEnter_bnt}">
+                                            <dxmvvm:EventToCommand.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                                                    <Binding ElementName="btnplay"/>
+                                                </MultiBinding>
+                                            </dxmvvm:EventToCommand.CommandParameter>
+                                        </dxmvvm:EventToCommand>
+
+                                        <dxmvvm:EventToCommand EventName="MouseLeave"   Command="{Binding MouseLeave_bnt}">
+                                            <dxmvvm:EventToCommand.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                                                    <Binding ElementName="btnplay"/>
+                                                </MultiBinding>
+                                            </dxmvvm:EventToCommand.CommandParameter>
+                                        </dxmvvm:EventToCommand>
+
+
+
+                                    </dxmvvm:Interaction.Behaviors>
+
+
+
+
+
+
+                                </StackPanel>
+                                <StackPanel>
+                                    <Button  x:Name="btninfo"   Margin="10 10" HorizontalAlignment="Left"      >
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+
+                                                <TextBlock Margin="5 0 0 2"  Foreground="{Binding mainchoosepagemodel.textblockinfo}">
+                                                    Подробнее
+                                                </TextBlock>
+                                                <materialDesign:PackIcon Width="20" Height="20" Kind="DotsVertical" />
+                                            </StackPanel>
+                                        </Button.Content>
+
+
+
+
+                                    </Button>
+
+                                    <dxmvvm:Interaction.Behaviors>
+                                        <dxmvvm:EventToCommand EventName="Loaded"   Command="{Binding InitializeCommand2}">
+                                            <dxmvvm:EventToCommand.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                                                    <Binding ElementName="btninfo"/>
+                                                </MultiBinding>
+                                            </dxmvvm:EventToCommand.CommandParameter>
+                                        </dxmvvm:EventToCommand>
+
+
+
+                                        <dxmvvm:EventToCommand EventName="MouseEnter"   Command="{Binding MouseEnter_bntinfo}">
+                                            <dxmvvm:EventToCommand.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                                                    <Binding ElementName="btninfo"/>
+                                                </MultiBinding>
+                                            </dxmvvm:EventToCommand.CommandParameter>
+                                        </dxmvvm:EventToCommand>
+
+                                        <dxmvvm:EventToCommand EventName="MouseLeave"   Command="{Binding MouseLeave_bntinfo}">
+                                            <dxmvvm:EventToCommand.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                                                    <Binding ElementName="btninfo"/>
+                                                </MultiBinding>
+                                            </dxmvvm:EventToCommand.CommandParameter>
+                                        </dxmvvm:EventToCommand>
+
+                                    </dxmvvm:Interaction.Behaviors>
+
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+
+
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </ScrollViewer>
+        <ScrollViewer>
+            <StackPanel>
+                <StackPanel>
+                    <TextBlock Margin="20 20 0 0" Text="Halanlarym" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <Border  Width="150"  >
+
+                                <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                            </Border>
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Dowamyny serediň" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Aýdymlar" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Iň Täzeler" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Täzelenen seriallar" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Soňky goşulan filmler" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Hakyky wakalara esaslanan filimler" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Trillerler" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Özbek filimler" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Türk seriallar" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Turk seriallar rus dilinde " FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Multfilmler" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Anime" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Dokumental filmleri" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="TV SHOW" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Apple TV+ tarapyndan döredilen " FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="MARVEL komikslerden filmler" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Stiwen Spilbergyn kinolary" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Kwentin Tarantinonyn kinolary" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Ýylyň esasy filmleri" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Kriminal Russiýa" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Margin="20 20 0 0" Text="Meşhur dokumental filmler" FontSize="20" FontWeight="Medium" Foreground="Black" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border Margin="20 0" Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border   Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                    <Border  Width="150"  >
+
+                                        <Image Source="C:\Data\source\WPF\Belet\Belet\bin\Debug\Images\Elemetary.jpg"/>
+
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                </StackPanel>
+
+
+
+                <StackPanel Background="#1d3159"
+                                Margin="0 0 0 0">
+                    <WrapPanel Width="auto"
+                                    Margin="0 100 0 0"
+                                    HorizontalAlignment="Center">
+
+                        <Image VerticalAlignment="Top"
+                                   Source="{Binding filmModel.logo}"
+                                   Width="180"
+                                   Margin="80 15 20 0"
+                                   Height="130" />
+                        <StackPanel  Margin="20 15 0 0">
+                            <TextBlock HorizontalAlignment="Left"
+                                           Margin="15 0 0 10 "
+                                           FontWeight="Medium"
+                                           Foreground="White"
+                                           FontSize="25"
+                                           Text="Kärhana" />
+                            <Button HorizontalAlignment="Left"
+                                        FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                Command="{Binding BizBarada}"
+                                        Content="Biz barada"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="auto" />
+                            <Button FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                        Content="Kontaktlarymyz"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="auto" />
+                            <Button FontWeight="Normal"
+                                        Foreground="White"
+                                        FontSize="15"
+                                        HorizontalAlignment="Left"
+                                Command="{Binding KarTazelik}"
+                                        Content="Täzelikler"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Height="auto" />
+                        </StackPanel>
+                        <StackPanel  Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Goldaw"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Content="Goldaw Merkezi"
+                                       Command="{Binding goldawmerkezi}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+                            <StackPanel Orientation="Horizontal"
+                                       Margin="-10 0 0 0"
+                                            HorizontalAlignment="Center">
+                                <materialDesign:PackIcon x:Name="phoneicon" MouseDown="first_MouseDown"  Height="30" Width="30" Kind="PhoneInTalkOutline" />
+                                <materialDesign:PackIcon x:Name="telegramicon" MouseDown="second_MouseDown" Height="30" Width="30" Margin="10 0" Kind="SendCircleOutline" />
+                                <materialDesign:PackIcon x:Name="emailicon" MouseDown="third_MouseDown" Height="30" Width="30" Kind="EmailSyncOutline" />
+
+                                <x:Code>
+                                    <![CDATA[            
+        private void first_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+             Process.Start("https://belet.com.tm/tel:+993-12-75-02-08");
+        }
+                                    private void second_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://t.me/belet_video_forum");
+        }
+                                    private void third_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+             Process.Start("mailto:info@belet.me");
+        }
+    ]]>
+                                </x:Code>
+
+
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel   Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Belet Video"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"        Command="{Binding myhabathyzmatlar}"
+                                        Content="Mahabat hyzmatlary"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+
+                        </StackPanel>
+                        <StackPanel   Margin="20 15 0 0">
+                            <TextBlock Margin="15 0 0 0"
+                                           Background="Transparent"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           Height="Auto"
+                                           Text="Ýerleşýän salgymyz"
+                                           FontSize="20"
+                                           FontWeight="Medium" />
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Height="auto"
+                                    Command="{Binding maplocation}"
+                                        FontSize="15"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal">
+                                <TextBlock>
+                             Aşgabat şäher, 
+                            <LineBreak />
+                            Berkararlyk etraby,
+                            <LineBreak />
+                             2127(G.Gulyýew) köçesi, 
+                            <LineBreak />
+                            38-nji jaý.
+                                </TextBlock>
+                            </Button>
+                            <Button Background="Transparent"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Foreground="White"
+                                        Height="auto"
+                                    Command="{Binding callbtn}"
+                                        FontSize="15"
+                                        Content=" +993 (12) 75-02-08"
+                                        Margin="0 0 0 20"
+                                        FontWeight="Normal" />
+
+
+                        </StackPanel>
+
+                    </WrapPanel>
+
+                    <Border BorderThickness="0.5"
+                                BorderBrush="Gray" />
+                    <WrapPanel>
+                        <Button Foreground="White"
+                                    Content="Gizlinlik syýasaty    /"
+                                    Background="Transparent"
+                                Command="{Binding confidbtn}"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content="Ulanmak düzgünleri    /"
+                                    Background="Transparent"
+                                Command="{Binding confidbtn}"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content=" Belet Speed     /"
+                                Command="{Binding beletspeed}"
+                                    Background="Transparent"
+                                    BorderThickness="0" />
+                        <Button Foreground="White"
+                                    Content="Türkmentelekom    "
+                                Command="{Binding turkmentelekom}"
+                                    Background="Transparent"
+                                    BorderThickness="0" />
+                    </WrapPanel>
+                    <Button Foreground="White"
+                                Content="JAN tehnologiýa HJ - Ähli hukuklar goralan."
+                                FontSize="16"
+                                Margin="0 10 0 50"
+                                Background="Transparent"
+                                BorderThickness="0" />
+
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+        </ScrollViewer>
+
+    </StackPanel>-->
+
+    <!--<Grid>
+
+        <WrapPanel >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" >
+                <Button Width="120" Height="160" BorderThickness="3"  Background="Transparent" >
+                    <Button.Content>
+                        <Image Source="{Binding pageModel.coverpic}"/>
+                    </Button.Content>
+                </Button>
+                <StackPanel>
+                    <TextBlock Margin="10 10 0 0" Text="{Binding pageModel.textblockinfo}" FontSize="15" />
+                    <TextBlock Width="200" Margin="10 10 0 0" Text="{Binding pageModel.textblockplay}" 
+                               TextWrapping="Wrap"
+                               FontSize="12" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" >
+                <Button Width="120" Height="160" BorderThickness="3"  Background="Transparent" >
+                    <Button.Content>
+                        <Image Source="{Binding pageModel.coverpic2}"/>
+                    </Button.Content>
+                </Button>
+                <StackPanel>
+                    <TextBlock Margin="10 10 0 0" Text="{Binding pageModel.textblockinfo}" FontSize="15" />
+                    <TextBlock Width="200" Margin="10 10 0 0" Text="{Binding pageModel.textblockplay}" 
+                               TextWrapping="Wrap"
+                               FontSize="12" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" >
+                <Button Width="120" Height="160" BorderThickness="3"  Background="Transparent" >
+                    <Button.Content>
+                        <Image Source="{Binding pageModel.coverpic3}"/>
+                    </Button.Content>
+                </Button>
+                <StackPanel>
+                    <TextBlock Margin="10 10 0 0" Text="{Binding pageModel.textblockinfo}" FontSize="15" />
+                    <TextBlock Width="200" Margin="10 10 0 0" Text="{Binding pageModel.textblockplay}" 
+                               TextWrapping="Wrap"
+                               FontSize="12" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" >
+                <Button Width="120" Height="160" BorderThickness="3"  Background="Transparent" >
+                    <Button.Content>
+                        <Image Source="{Binding pageModel.coverpic4}"/>
+                    </Button.Content>
+                </Button>
+                <StackPanel>
+                    <TextBlock Margin="10 10 0 0" Text="{Binding pageModel.textblockinfo}" FontSize="15" />
+                    <TextBlock Width="200" Margin="10 10 0 0" Text="{Binding pageModel.textblockplay}" 
+                               TextWrapping="Wrap"
+                               FontSize="12" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" >
+                <Button Width="120" Height="160" BorderThickness="3"  Background="Transparent" >
+                    <Button.Content>
+                        <Image Source="{Binding pageModel.coverpic5}"/>
+                    </Button.Content>
+                </Button>
+                <StackPanel>
+                    <TextBlock Margin="10 10 0 0" Text="{Binding pageModel.textblockinfo}" FontSize="15" />
+                    <TextBlock Width="200" Margin="10 10 0 0" Text="{Binding pageModel.textblockplay}" 
+                               TextWrapping="Wrap"
+                               FontSize="12" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" >
+                <Button Width="120" Height="160" BorderThickness="3"  Background="Transparent" >
+                    <Button.Content>
+                        <Image Source="{Binding pageModel.coverpic6}"/>
+                    </Button.Content>
+                </Button>
+                <StackPanel>
+                    <TextBlock Margin="10 10 0 0" Text="{Binding pageModel.textblockinfo}" FontSize="15" />
+                    <TextBlock Width="200" Margin="10 10 0 0" Text="{Binding pageModel.textblockplay}" 
+                               TextWrapping="Wrap"
+                               FontSize="12" />
+                </StackPanel>
+            </StackPanel>
+        </WrapPanel>
+    </Grid>-->
+
+    <Grid x:Name="FirstGrid"  Background="{DynamicResource MaterialDesignPaper}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:PopupBox Grid.Row="0" HorizontalAlignment="Right" Margin="0 10 20 10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25"  >
+
+            <StackPanel>
+              
+                <Button Command="{Binding goldawmerkezi}" ToolTip="Having Trouble Loggin In?" Margin="0 8 0 0" Content="Help me"/>
+                <Button   ToolTip="Close Application" Content="Exit Application" Command="{Binding close_application}"/>
+                <Button    Content="Minimize" Command="{Binding cmdLogin}"/>
+                <Button    Content="{Binding  filmModel.IsBigOrNormal}" Command="{Binding sizechangebtn}"/>
+                <Button ToolTip="Present" Content="Present" Command="{Binding presentBtn}"/>
+                <Button   ToolTip="Log out" x:Name="LogOutBtn" Content="Log out" Command="{Binding LogOutBtn}"/> 
+            </StackPanel>
+        </materialDesign:PopupBox>
+        
+
+
+        <StackPanel Grid.Row="1">
+            <Grid>
+                <WrapPanel Grid.Row="0" HorizontalAlignment="Left"  Margin="50 10 0 0">
+                    <Button  Command="{Binding choosepageBack}"   Margin="0 0 10 0" Width="50" Height="auto" BorderThickness="0" Background="Transparent">
+                        <Button.Content>
+                            <Image>
+                                <Image.Source >
+                                    <DrawingImage   PresentationOptions:Freeze="True">
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup>
+                                                <DrawingGroup>
+                                                    <DrawingGroup.Transform>
+                                                        <TranslateTransform X="-1.99910593032837" Y="-1"/>
+                                                    </DrawingGroup.Transform>
+                                                    <GeometryDrawing Brush="Black" Geometry="F1M12.5,15A0.5,0.5,0,0,1,12,14.5L12,1.5A0.5,0.5,0,0,1,13,1.5L13,14.5A0.5,0.5,0,0,1,12.5,15z M10,8A0.5,0.5,0,0,1,9.5,8.5L3.707,8.5 5.854,10.646A0.5,0.5,0,0,1,5.146,11.354L2.146,8.354A0.5,0.5,0,0,1,2.146,7.646L5.146,4.646A0.5,0.5,0,1,1,5.854,5.354L3.707,7.5 9.5,7.5A0.5,0.5,0,0,1,10,8z"/>
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button.Content>
+                    </Button>
+                    <TextBlock Text="BeletFilm " FontSize="34" FontWeight="Bold"/>
+
+
+                </WrapPanel> 
+            </Grid>
+            <Grid Margin="0 20 0 0">
+                <StackPanel Width="520" HorizontalAlignment="Left" Margin="50 0 0 0" Orientation="Horizontal">
+
+                    <TextBlock  Text="Поиск" FontSize="30" FontWeight="Medium"  />
+                    <StackPanel  Margin="40 0 0 0">
+                        <TextBlock Text="Категории" FontSize="12"/>
+                        
+                        <ComboBox  SelectedIndex="0" x:Name="MediatypeComboBox" HorizontalAlignment="Left"   Width="100" 
+                                 FontSize="13"
+                            
+                            ItemsSource="{Binding Path=Kategory , Mode=TwoWay}"
+                                     />
+                    </StackPanel>
+                    <StackPanel Margin="40 0 0 0">
+                        <TextBlock Text="Жанр" FontSize="12"/>
+                        <ComboBox SelectedIndex="0" HorizontalAlignment="Left"  x:Name="GenersComboBox"  Width="100" 
+                               FontSize="13"
+                            ItemsSource="{Binding Path=Geners , Mode=TwoWay}"
+                                     />
+                    </StackPanel>
+
+                    <StackPanel Margin="40 0 0 0">
+                        <TextBlock Text="Страны" FontSize="12"/>
+                        <ComboBox HorizontalAlignment="Left"  x:Name="CountryComboBox" Width="100" 
+                              FontSize="13"
+                                  SelectedIndex="0"
+                            ItemsSource="{Binding Path=Countries, Mode=TwoWay}"
+                                     />
+                    </StackPanel>
+
+
+
+                </StackPanel>
+                <StackPanel Margin="0 0 40 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <StackPanel>
+                        <TextBlock Text="Название" FontSize="12"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderBrush="Black"
+                               BorderThickness="2"
+                               VerticalAlignment="Center"
+                               CornerRadius="5">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon BorderBrush="Gray"  BorderThickness="0"   Height="25" Width="24" Kind="Magnify" />
+
+                                    <TextBox Width="170" BorderBrush="Gray" x:Name="SearchText" BorderThickness="0" Height="25" />
+                                </StackPanel>
+                            </Border>
+
+
+
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="10 0 0 0">
+                        <TextBlock Text="Сортировка" FontSize="12"/>
+                        <ComboBox  x:Name="SortMediaCombobox" HorizontalAlignment="Left"   Width="150" 
+                               FontSize="13"
+                                    SelectedIndex="0"
+                            ItemsSource="{Binding Path=SortMedia , Mode=TwoWay}"
+                                     />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+           
+
+        </StackPanel>
+
+
+        <ScrollViewer Margin="30 10 50 0" x:Name="BlockScrollViewer"  Grid.Row="2" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" >
+            <WrapPanel Width="1000" x:Name="BlockWrapPanel">
+
+            </WrapPanel>
+
+        </ScrollViewer>
+
+
+        <dxwui:NavigationFrame Grid.Row="1"   Grid.RowSpan="2" >
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnViewLoadedCommand}" />
+                <dxwuin:FrameNavigationService />
+            </dxmvvm:Interaction.Behaviors>
+
+           
+            
+        </dxwui:NavigationFrame>
+
+    </Grid>
+
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand EventName="Loaded"   Command="{Binding InitializeCommand}">
+            <dxmvvm:EventToCommand.CommandParameter>
+                <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                    <Binding ElementName="Window"/>
+                    <Binding ElementName="FirstGrid"/>
+                    <Binding ElementName="BlockScrollViewer"/>
+                    <Binding ElementName="BlockWrapPanel"/>
+                    <Binding ElementName="MediatypeComboBox"/>
+                    <Binding ElementName="CountryComboBox"/>
+                    <Binding ElementName="GenersComboBox"/>
+                    <Binding ElementName="SortMediaCombobox"/>
+                    <Binding ElementName="LogOutBtn"/>
+                    <Binding ElementName="SearchText"/>
+                </MultiBinding>
+            </dxmvvm:EventToCommand.CommandParameter>
+        </dxmvvm:EventToCommand>
+
+
+        <dxmvvm:EventToCommand EventName="SizeChanged"   Command="{Binding SizeChangedEvent}">
+            <dxmvvm:EventToCommand.CommandParameter>
+                <MultiBinding Converter="{StaticResource MultiBindingConverter}">
+                    <Binding ElementName="Window"/> 
+                    <Binding ElementName="BlockWrapPanel"/>
+                </MultiBinding>
+            </dxmvvm:EventToCommand.CommandParameter>
+        </dxmvvm:EventToCommand>
+
+
+    </dxmvvm:Interaction.Behaviors>
+
+
+
+</Window>

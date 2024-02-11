@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_logs",
+  "info": {
+    "singularName": "user-log",
+    "pluralName": "user-logs",
+    "displayName": "user_log",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_phone_number": {
+      "type": "string"
+    }
+  }
+}
